@@ -1,4 +1,4 @@
-# API - 1° Semestre ADS - FATEC SJC
+# API - 2° Semestre ADS - FATEC SJC
 
 Projeto voltado para o desenvolvimento de um Ambiente Integrado de Desenvolvimento (IDE)
 
