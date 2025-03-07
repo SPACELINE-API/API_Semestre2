@@ -14,6 +14,8 @@
   Uso de estratégias para entender o problema, conceber uma solução viável ao desenvolver e implementar o MVP seguido de sua operação (CDIO). 
   Os resultados dos projetos devem obedecer ao Aviso Legal disponível no site da Fatec SJC com definição das datas do kickoff e das sprints
 
+  ## :card_index: Sprints
+  
   Sprint | Previsão | Status|
   |------|--------|------|
   |Kick Off Geral | 24/02/2025 - 28/02/2025 | Concluído |
@@ -21,6 +23,37 @@
   |02| 07/04/2025 - 27/04/2025 | a fazer |
   |03| 05/05/2025 - 25/05/2025 | a fazer |
   |Feira de Soluções|29/05/2025 |a fazer |
+
+
+  # Objetivo do Projeto
+
+
+
+
+  [(![Logo Spaceline1](https://github.com/user-attachments/assets/0172c881-902b-4b82-b01a-fa3a1f033c75))](https://youtu.be/nUbAAqzZpUc)
+
+  </details>
+
+  # Competências desenvolvidas
+
+## Hard Skill (saber tecnológico)
+<details>
+<summary>Hard Skills desenvolvidas</summary>
+  
+| Tecnologia/Metodologia | Classificação |
+| ---------------------- | ------------- |
+| GitHub | ★ ★ ★ ★ ★ ★ ★ ☆ ☆ ☆ |
+| Gestão de Projetos | ★ ★ ★ ★ ★ ★ ☆ ☆ ☆ ☆ |
+| Scrum Master | ★ ★ ★ ★ ★ ★ ★ ☆ ☆ ☆ |
+| Prodct Owner | ★ ★ ★ ★ ★ ★ ★ ☆ ☆ ☆ |
+| Markdown | ★ ★ ★ ★ ★ ★ ★ ☆ ☆ ☆ |
+| Git Projects | ★ ★ ★ ★ ★ ★ ★ ☆ ☆ ☆ |
+| Jira Software | ★ ★ ★ ★ ★ ★ ★ ☆ ☆ ☆ |
+
+# :medal_sports: Docentes
+| P¹ | m² |
+| ---------------------- | ------------- |
+| Professor Giuliano Bertoti | Professor Cláudio Lima |
 
 
   # Autores
