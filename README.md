@@ -32,6 +32,36 @@
 
   [(![Logo Spaceline1](https://github.com/user-attachments/assets/0172c881-902b-4b82-b01a-fa3a1f033c75))](https://youtu.be/nUbAAqzZpUc)
 
+
+## :desktop_computer: Tecnologias Utilizadas
+<div align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" height="40" alt="figma logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" height="40" alt="github logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" height="40" alt="java logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" height="40" alt="jira logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/intellij/intellij-original.svg" height="40" alt="intellij logo"  />
+  <img width="12" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" height="40" alt="canva logo"  />
+</div>
+
+###
+
+# Backlog do produto
+
+| Rank | User Story | Prioridade | Sprint |
+|----|---------|----------|------|
+| 1 | Juliano, um desenvolvedor, quer que a IDE sugira formas de completar seu código para aumentar sua produtividade e reduzir erros.| Altíssima | 1 |
+| 2 | Álvaro, outro desenvolvedor, quer rodar seu código diretamente na IDE para testar funcionalidades rapidamente.  | Alta | 1 |
+| 3 | Niles, um engenheiro de software, quer que a IDE gere código automaticamente para acelerar seu desenvolvimento. | Alta | 1 |
+| 4 | Valéria, outra desenvolvedora, quer que a IDE ajude a entender códigos desconhecidos, explicando suas funcionalidades. | Altíssimo | 1 |
+
+
+
+
   </details>
 
   # Competências desenvolvidas
