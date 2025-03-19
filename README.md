@@ -30,7 +30,7 @@
 
 
 
-  [(![Logo Spaceline1](https://github.com/user-attachments/assets/0172c881-902b-4b82-b01a-fa3a1f033c75))](https://youtu.be/nUbAAqzZpUc)
+  [(![Logo Spaceline1](https://github.com/user-attachments/assets/0172c881-902b-4b82-b01a-fa3a1f033c75))]
 
 
 ## :desktop_computer: Tecnologias Utilizadas
