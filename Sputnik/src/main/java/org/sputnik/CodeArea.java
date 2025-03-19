@@ -24,6 +24,10 @@ public class CodeArea extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("Arquivo");
 
+        // Arquivo - Item Abrir
+        JMenuItem openItem = new JMenuItem("Abrir");
+        openItem.addActionListener(this::handleOpen);
+
         // Arquivo - Item Salvar
         JMenuItem saveItem = new JMenuItem("Salvar");
         saveItem.addActionListener(this::handleSave);
@@ -32,10 +36,20 @@ public class CodeArea extends JFrame {
         JMenuItem saveAsItem = new JMenuItem("Salvar Como");
         saveAsItem.addActionListener(this::handleSaveAs);
 
+        fileMenu.add(openItem);
         fileMenu.add(saveItem);
         fileMenu.add(saveAsItem);
         menuBar.add(fileMenu);
         setJMenuBar(menuBar);
+    }
+
+    // Manipulador de Abrir Arquivo
+    private void handleOpen(ActionEvent e) {
+        String content = fileManager.openFile();
+        if (content != null) {
+            textArea.setText(content);
+            JOptionPane.showMessageDialog(this, "Arquivo carregado com sucesso!");
+        }
     }
 
     // Manipulador de Salvar

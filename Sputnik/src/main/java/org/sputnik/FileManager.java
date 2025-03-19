@@ -78,5 +78,35 @@ public class FileManager {
             return false;
         }
     }
+    /**
+     * Abre o Arquivo Requerido
+     * @return     
+     */
+    public String openFile(){
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION){
+            currentFile = fileChooser.getSelectedFile();
+            return readFile(currentFile);
+        }
+        return null;
+    }
+    /**
+     * Lê o arquivo
+     * @return
+     */
+        private String readFile(File file) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            StringBuilder content = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+            return content.toString();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo", "Erro", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+    }
+    
 }
 
