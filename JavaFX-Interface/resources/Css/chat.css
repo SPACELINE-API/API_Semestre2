@@ -1,0 +1,38 @@
+.titulo-chat {
+    -fx-font-family: "Inter";
+    -fx-font-size: 16px;
+    -fx-text-fill: #B0BEC5;
+}
+
+.area-chat {
+    -fx-background-color: #061A2B;
+    -fx-text-fill: #04293a;
+    -fx-padding: 10px;
+}
+
+.display-chat {
+    -fx-control-inner-background: #04293A;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 10px;
+}
+
+.mensagem-chat {
+    -fx-background-color: #013F57;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+.enviar-chat {
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+    -fx-background-color: #026873;
+    -fx-padding: 10px;
+}
+
+.enviar-chat:hover {
+    -fx-background-color: #038C8C;
+}
