@@ -57,7 +57,7 @@
 | 1 | Juliano, um desenvolvedor, quer que a IDE sugira formas de completar seu código para aumentar sua produtividade e reduzir erros.| Alta | 1 |
 | 2 | Álvaro, outro desenvolvedor, quer rodar seu código diretamente na IDE para testar funcionalidades rapidamente.  | Altíssima | 1 |
 | 3 | Niles, um engenheiro de software, quer que a IDE gere código automaticamente para acelerar seu desenvolvimento. | Alta | 1 |
-| 4 | Valéria, outra desenvolvedora, quer que a IDE tenha o auxilio de uma IA que ajude a entender códigos desconhecidos, explicando suas funcionalidades. | Altíssimo | 1 |
+| 4 | Valéria, outra desenvolvedora, quer que a IDE tenha o auxilio de uma org.sputnik.api.IA que ajude a entender códigos desconhecidos, explicando suas funcionalidades. | Altíssimo | 1 |
 | 5 | Samanta, outra desenvolvedora, gostaria de abrir outros arquivos de códigos em sua IDE.  | Altíssimo | 1 |
 | 6 | Carla, outra desenvolvedora, gostaria de salvar seu progresso no código, para que possa finaliza-lo mesmo fazendo pausas na codificação.  | Altíssimo | 1 |
 
