@@ -1,0 +1,122 @@
+@font-face {
+    font-family: 'Inter';
+    src: url("../fonts/Inter/Inter_18pt-Regular.ttf") format("opentype");
+}
+
+@font-face {
+    font-family: "Jura";
+    src: url("../fonts/Jura/Jura-Regular.ttf");
+}
+
+.root {
+    -fx-background-color: #04293A;
+}
+
+.inicio {
+    -fx-background-color: #04293A;
+    -fx-padding: 5px;
+    -fx-alignment: top-center;
+}
+
+.title {
+    -fx-font-family: "Jura", sans-serif;
+    -fx-font-size: 85px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #E0E0E0;
+    -fx-padding: 50px 0 15px 0;
+}
+
+.meio {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14px;
+    -fx-text-fill: #B0BEC5;
+    -fx-cursor: hand;
+    -fx-padding: 5px 10px;
+    -fx-alignment: center;
+    -fx-min-width: 200px;
+    -fx-background-color: #04293A;
+}
+
+.meio:hover {
+    -fx-text-fill: white;
+}
+
+.barraLateral {
+    -fx-background-color: #002b36;
+}
+
+.editor-texto {
+    -fx-font-family: "Consolas";
+    -fx-font-size: 14px;
+    -fx-background-color: #1B1B1B;
+    -fx-text-fill: white;
+}
+
+.menuTopo {
+    -fx-background-color: #061A2B;
+    -fx-text-fill: white;
+}
+
+.menuTopo .menu {
+    -fx-text-fill: white;
+}
+
+.menuTopo .menu:hover {
+    -fx-background-color: #124E78;
+}
+
+.menu-item {
+    -fx-font-family: "Inter";
+    -fx-font-size: 14px;
+    -fx-text-fill: #B0BEC5;
+    -fx-cursor: hand;
+    -fx-padding: 5px 10px;
+    -fx-alignment: center;
+    -fx-min-width: 200px;
+    -fx-background-color: #061A2B;
+}
+
+.menu-item:hover {
+    -fx-text-fill: white;
+}
+
+.menu-bar {
+    -fx-background-color: #041C32;
+    -fx-border-color: #2E3A47;
+    -fx-border-width: 0 0 1px 0;
+}
+
+.menu-bar .label {
+    -fx-text-fill: #E0E0E0;
+    -fx-font-size: 14px;
+}
+
+.split-pane{
+    -fx-background-color: #041C32;
+    -fx-divider-width: 0px;
+    -fx-divider-height: 0px;
+}
+
+.explorador-arquivos{
+    -fx-background-color: #061A2B;
+    -fx-control-inner-background: #061A2B;
+    -fx-text-fill: #ffffff;
+}
+
+.output-area{
+    -fx-control-inner-background: #041C32;
+    -fx-font-family: "Inter";
+    -fx-border-color: #061A2B;
+}
+
+.editor-texto{
+    -fx-control-inner-background: #041C32;
+    -fx-text-fill: #EEEA75;
+    -fx-font-family: "Inter";
+    -fx-font-size: 14px;
+}
+
+.output-pane{
+    -fx-text-fill: #B0BEC5;
+}
+
