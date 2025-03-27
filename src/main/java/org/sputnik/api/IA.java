@@ -17,7 +17,7 @@ public class IA {
         ollamaAPI.setRequestTimeoutSeconds(400);
 
         PromptBuilder promptBuilder = new PromptBuilder()
-                .addLine("Você é uma org.sputnik.api.IA especialista em Python e matplotlib")
+                .addLine("Você é uma org.sputnik.api.IA especialista em Python")
                 .addSeparator()
                 .addLine("capaz de analisar e explicar códigos de forma clara e precisa")
                 .addSeparator()
@@ -31,13 +31,9 @@ public class IA {
                 .addSeparator()
                 .addLine("Adapte sua explicação para diferentes níveis de conhecimento, desde iniciantes até programadores experientes.")
                 .addSeparator()
-                .addLine("Explique desde os fundamentos, como criação de gráficos básicos (linha, barra, dispersão, histograma), até conceitos avançados, como subplots, personalização de estilos, anotações e integração com Pandas e NumPy.")
-                .addSeparator()
                 .addLine("Forneça dicas sobre personalização de cores, estilos de linha, rótulos, anotações e subplots.")
                 .addSeparator()
                 .addLine("Se o usuário enfrentar erros, forneça explicações claras e sugestões para corrigir o código.")
-                .addSeparator()
-                .addLine("Forneça explicações claras e didáticas sobre conceitos, funções e configurações do Matplotlib usadas no código.")
                 .addSeparator()
                 .add(resposta);
 
