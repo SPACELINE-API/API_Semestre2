@@ -3,24 +3,31 @@ package org.sputnik.api;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import javafx.scene.control.TextArea;
 
 public class TelaInicial {
-    public static VBox createTelaInicial() {
+    public static VBox createTelaInicial(Stage primaryStage, BorderPane root) {
         Label title = new Label("Sputnik");
         title.getStyleClass().add("title");
 
         Button createProject = new Button("Explicação do código");
-        Button openFile = new Button("Abra arquivo");
-        Button openFolder = new Button("Abra pasta");
-        Button cloneGit = new Button("Clone repositório Git");
+        Label openFile = new Label("Abra arquivo");
+        Label openFolder = new Label("Abra pasta");
+        Label cloneGit = new Label("Clone repositório Git");
 
         createProject.getStyleClass().add("meio");
         openFile.getStyleClass().add("meio");
         openFolder.getStyleClass().add("meio");
         cloneGit.getStyleClass().add("meio");
+
+        openFile.setOnMouseClicked(e -> abrirArquivo(primaryStage, root));
 
         createProject.setOnAction(event -> openNewProjectWindow());
 
@@ -65,5 +72,25 @@ public class TelaInicial {
         newStage.setScene(scene);
 
         newStage.show();
+    }
+    private static void abrirArquivo(Stage primaryStage, BorderPane root) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Abrir Arquivo");
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Arquivos de Texto", "*.txt"),
+                new FileChooser.ExtensionFilter("Arquivos Java", "*.java")
+        );
+        File file = fileChooser.showOpenDialog(primaryStage);
+        if (file != null) {
+            try {
+                menuTopo.setCurrentFile(file);
+
+                String content = new String(Files.readAllBytes(file.toPath()));
+                root.setCenter(menuTopo.createContentDisplay(content));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

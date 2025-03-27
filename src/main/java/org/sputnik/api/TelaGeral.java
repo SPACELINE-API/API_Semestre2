@@ -22,10 +22,9 @@ public class TelaGeral extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        root.setTop(menuTopo.createMenuBar());
+        root.setTop(menuTopo.createMenuBar(primaryStage, root));
         root.setLeft(Lateral.createLateral());
-        root.setCenter(EditorTexto.createEditorTexto());
-        root.setCenter(TelaInicial.createTelaInicial());
+        root.setCenter(TelaInicial.createTelaInicial(primaryStage, root));
 
 
         scene.getStylesheets().add(getClass().getResource("/Css/styles.css").toExternalForm());
