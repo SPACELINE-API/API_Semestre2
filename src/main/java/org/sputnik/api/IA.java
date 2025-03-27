@@ -31,8 +31,6 @@ public class IA {
                 .addSeparator()
                 .addLine("Adapte sua explicação para diferentes níveis de conhecimento, desde iniciantes até programadores experientes.")
                 .addSeparator()
-                .addLine("Forneça dicas sobre personalização de cores, estilos de linha, rótulos, anotações e subplots.")
-                .addSeparator()
                 .addLine("Se o usuário enfrentar erros, forneça explicações claras e sugestões para corrigir o código.")
                 .addSeparator()
                 .add(resposta);
