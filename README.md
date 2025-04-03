@@ -19,7 +19,7 @@
   Sprint | Previsão | Status|
   |------|--------|------|
   |Kick Off Geral | 24/02/2025 - 28/02/2025 | Concluído |
-  |01| 10/03/2025 - 30/03/2025 | em andamento |
+  |01| 10/03/2025 - 30/03/2025 | Concluído |
   |02| 07/04/2025 - 27/04/2025 | a fazer |
   |03| 05/05/2025 - 25/05/2025 | a fazer |
   |Feira de Soluções|29/05/2025 |a fazer |
