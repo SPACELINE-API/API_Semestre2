@@ -39,7 +39,7 @@ Clique na imagem abaixo para uma demonstração.
 
 ## :desktop_computer: Tecnologias Utilizadas
 <div align="left">
-  <img src="https://skills-icons.vercel.app/api/icons?i=canva,css,figma,git,gh,intellij,java,jira,excel,ollama,maven,jax" height="55" />
+  <img src="https://go-skill-icons.vercel.app/api/icons?i=canva,css,figma,git,github,idea,java,jira,excel,ollama,maven,jax,mysql" />
 </div>
 
 ###
