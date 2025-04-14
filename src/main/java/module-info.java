@@ -10,6 +10,7 @@ module org.sputnik.api {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires ollama4j;
     requires org.fxmisc.richtext;
     requires reactfx;
 

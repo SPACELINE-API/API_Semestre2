@@ -30,8 +30,13 @@
                   <MenuItem mnemonicParsing="false" text="Inteligência Artificial" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Explicar" />
-            <Menu mnemonicParsing="false" text="Sugestões" />
+                <Menu mnemonicParsing="false" text="Explicação">
+                    <items>
+                        <MenuItem text="Veja a explicação do seu código" onAction="#explicar" />
+                    </items>
+                </Menu>
+
+                <Menu mnemonicParsing="false" text="Sugestões" />
             <Menu mnemonicParsing="false" text="Tradução">
               <items>
                 <MenuItem mnemonicParsing="false" text="Kotlin" />
@@ -66,5 +71,4 @@
     <bottom>
         <TextArea fx:id="outPut" editable="false" prefHeight="174.0" prefWidth="739.0" styleClass="outPut" stylesheets="@../../../Css/principal.css" BorderPane.alignment="CENTER" />
     </bottom>
-
 </BorderPane>

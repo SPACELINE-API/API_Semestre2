@@ -175,3 +175,29 @@
         -fx-border-width: 1 0 0 0;
         -fx-border-color: #2E3A47;
     }
+    /*IA*/
+    .popup{
+        -fx-background-color: #2a3b4c;
+    }
+    .entrada{
+      -fx-font-family: "Jura";
+       -fx-font-size: 20px;
+       -fx-text-fill: white;
+    }
+     .saida{
+           -fx-font-family: "Jura";
+           -fx-font-size: 20px;
+           -fx-text-fill: white;
+     }
+     .botao{
+        -fx-font-family: "Jura";
+        -fx-font-size: 15px;
+     }
+     .input-area{
+        -fx-text-fill: black;
+        -fx-font-size: 14px;
+     }
+      .output-area{
+             -fx-text-fill: black;
+             -fx-font-size: 14px;
+          }

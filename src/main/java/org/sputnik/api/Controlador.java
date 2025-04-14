@@ -3,6 +3,7 @@ package org.sputnik.api;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -151,5 +152,67 @@ public class Controlador implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
+
+    @FXML
+    void explicar() {
+        Stage popup = new Stage();
+        popup.setTitle("Explicação do Código");
+
+
+        TextArea input = new TextArea();
+        input.setPromptText("Digite seu código aqui...");
+        input.setWrapText(true);
+        input.getStyleClass().add("input-area");
+        input.setPrefWidth(350);
+        input.setPrefHeight(400);
+
+
+        Button btnExplicar = new Button("Gerar Explicação");
+        btnExplicar.getStyleClass().add("botao");
+
+
+        TextArea output = new TextArea();
+        output.setEditable(false);
+        output.setWrapText(true);
+        output.getStyleClass().add("output-area");
+        output.setPrefWidth(350);
+        output.setPrefHeight(400);
+
+
+        btnExplicar.setOnAction(e -> {
+            String entrada = input.getText();
+            output.setText("Aguarde...");
+            new Thread(() -> {
+                try {
+                    String resposta = IA.getRespostaIA(entrada);
+                    javafx.application.Platform.runLater(() -> output.setText(resposta));
+                } catch (Exception ex) {
+                    javafx.application.Platform.runLater(() -> output.setText("Erro ao tentar obter explicação: " + ex.getMessage()));
+                    ex.printStackTrace();
+                }
+            }).start();
+        });
+
+
+        VBox layout = new VBox(10);
+        layout.setStyle("-fx-padding: 30;");
+        Label entradaLabel = new Label("Entrada");
+        entradaLabel.getStyleClass().add("entrada");
+        Label saidaLabel = new Label("Saída");
+        saidaLabel.getStyleClass().add("saida");
+
+        layout.getChildren().addAll(entradaLabel, input, btnExplicar, saidaLabel, output);
+        layout.getStyleClass().add("popup");
+
+        Scene scene = new Scene(layout, 400, 450);
+        scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
+        popup.setScene(scene);
+
+        if (tabPane != null && tabPane.getScene() != null) {
+            popup.initOwner(tabPane.getScene().getWindow());
+        }
+
+        popup.show();
     }
 }
