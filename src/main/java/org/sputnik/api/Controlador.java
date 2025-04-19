@@ -9,9 +9,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.fxmisc.richtext.CodeArea;
+import org.w3c.dom.Text;
+
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+
+
 
 public class Controlador implements Initializable {
 
@@ -24,10 +28,15 @@ public class Controlador implements Initializable {
     @FXML
     private VBox telaInicialBox;
 
+    @FXML
+    private TextArea outPut;
+
     private FileChooser fileChooser = new FileChooser();
     private Map<Tab, File> arquivosAbertos = new HashMap<>();
     private Map<String, File> nomeParaArquivo = new HashMap<>(); // Para TreeView
 
+
+    /*treeview*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         configurarTreeView();
@@ -78,6 +87,7 @@ public class Controlador implements Initializable {
         }
     }
 
+    /*Abrir arquivos*/
     @FXML
     void abrirArquivo(ActionEvent event) {
         File file = fileChooser.showOpenDialog(new Stage());
@@ -95,11 +105,11 @@ public class Controlador implements Initializable {
         }
 
         Tab novaAba = new Tab(file.getName());
-        CodeArea editor = new CodeArea();
-        editor.getStyleClass().add("editor-python");
-        novaAba.setContent(editor);
-        SyntaxHighlighter.applyHighlighting(editor);
+        TextArea editor = new TextArea();
+        editor.getStyleClass().add("editor-texto");
 
+
+        novaAba.setContent(editor);
         tabPane.getTabs().add(novaAba);
         tabPane.getSelectionModel().select(novaAba);
         arquivosAbertos.put(novaAba, file);
@@ -111,14 +121,16 @@ public class Controlador implements Initializable {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         adicionarArquivoNaTreeView(file);
+
+
     }
 
     @FXML
     void novoArquivo() {
         Tab novaAba = new Tab("Novo Arquivo");
         TextArea editor = new TextArea();
-        editor.setPromptText("// Escreva aqui...");
         editor.getStyleClass().add("editor-texto");
         novaAba.setContent(editor);
 
@@ -154,6 +166,66 @@ public class Controlador implements Initializable {
         }
     }
 
+    /*compilador*/
+
+    @FXML
+    void compilar() {
+        System.out.println("Método compilar chamado");
+        Tab abaSelecionada = tabPane.getSelectionModel().getSelectedItem();
+        if (abaSelecionada == null) {
+            outPut.setText("Nenhuma aba selecionada.");
+            return;
+        }
+
+        TextArea editor = (TextArea) abaSelecionada.getContent();
+        String codigo = editor.getText();
+
+        if (codigo == null || codigo.isBlank()) {
+            outPut.setText("Código vazio.");
+            return;
+        }
+
+        outPut.setText("Executando...\n");
+
+        new Thread(() -> {
+            try {
+                String resultado = executarPython(codigo);
+                javafx.application.Platform.runLater(() -> outPut.setText(resultado));
+            } catch (Exception e) {
+                javafx.application.Platform.runLater(() -> outPut.setText("Erro ao executar: " + e.getMessage()));
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private String executarPython(String codigoPython) throws IOException, InterruptedException {
+
+        File temp = File.createTempFile("codigo_temp", ".py");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(temp))) {
+            writer.write(codigoPython);
+        }
+
+        ProcessBuilder pb = new ProcessBuilder("python", temp.getAbsolutePath());
+        pb.redirectErrorStream(true); // junta stdout e stderr
+        Process process = pb.start();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        StringBuilder saida = new StringBuilder();
+        String linha;
+        while ((linha = reader.readLine()) != null) {
+            saida.append(linha).append("\n");
+        }
+
+        int exitCode = process.waitFor();
+        temp.delete();
+
+        return "Código finalizado com código de saída " + exitCode + ":\n" + saida.toString();
+    }
+
+    /*sintaxe*/
+
+
+
+    /*IA*/
     @FXML
     void explicar() {
         Stage popup = new Stage();

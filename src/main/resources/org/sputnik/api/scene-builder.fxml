@@ -11,64 +11,72 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="TelaInicial" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sputnik.api.Controlador">
 
-    <top>
-        <MenuBar fx:id="Menutopo" prefHeight="0.0" prefWidth="550.0" stylesheets="@../../../Css/principal.css" BorderPane.alignment="CENTER">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem fx:id="newFile" mnemonicParsing="false" onAction="#novoArquivo" text="Novo" />
-                        <MenuItem fx:id="openFileMenuItem" mnemonicParsing="false" onAction="#abrirArquivo" text="Abrir" />
-                        <MenuItem fx:id="saveFileMenuItem" mnemonicParsing="false" onAction="#salvarArquivo" text="Salvar" />
-                    </items>
+        <top>
+            <MenuBar fx:id="Menutopo" prefHeight="0.0" prefWidth="550.0" stylesheets="@../../../Css/principal.css" BorderPane.alignment="CENTER">
+                <menus>
+                    <Menu mnemonicParsing="false" text="File">
+                        <items>
+                            <MenuItem fx:id="newFile" mnemonicParsing="false" onAction="#novoArquivo" text="Novo" />
+                            <MenuItem fx:id="openFileMenuItem" mnemonicParsing="false" onAction="#abrirArquivo" text="Abrir" />
+                            <MenuItem fx:id="saveFileMenuItem" mnemonicParsing="false" onAction="#salvarArquivo" text="Salvar" />
+                        </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Ajuda">
+                        <items>
+                            <MenuItem mnemonicParsing="false" text="Sobre" />
+                      <MenuItem mnemonicParsing="false" text="Inteligência Artificial" />
+                        </items>
+                    </Menu>
+                    <Menu mnemonicParsing="false" text="Explicação">
+                        <items>
+                            <MenuItem onAction="#explicar" text="Veja a explicação do seu código" />
+                        </items>
+                    </Menu>
+
+                    <Menu mnemonicParsing="false" text="Sugestões" />
+                <Menu mnemonicParsing="false" text="Tradução">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Kotlin" />
+                      <MenuItem mnemonicParsing="false" text="Binário" />
+                  </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Ajuda">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Sobre" />
-                  <MenuItem mnemonicParsing="false" text="Inteligência Artificial" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Explicação">
-                    <items>
-                        <MenuItem text="Veja a explicação do seu código" onAction="#explicar" />
-                    </items>
-                </Menu>
+                <Menu fx:id="execBtn" mnemonicParsing="false">
+               <graphic>
+                  <Button fx:id="compbtn" alignment="TOP_CENTER" maxWidth="112.0" minHeight="0.0" mnemonicParsing="false" onAction="#compilar" prefHeight="20.0" prefWidth="34.0" styleClass="compbtn" text="▶" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+                     <font>
+                        <Font name="Inter 18pt Regular" size="12.0" />
+                     </font>
+                  </Button>
+               </graphic></Menu>
+                </menus>
+            </MenuBar>
+        </top>
 
-                <Menu mnemonicParsing="false" text="Sugestões" />
-            <Menu mnemonicParsing="false" text="Tradução">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Kotlin" />
-                  <MenuItem mnemonicParsing="false" text="Binário" />
-              </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Compilar" />
-            </menus>
-        </MenuBar>
-    </top>
+        <left>
+            <TreeView fx:id="treeView" styleClass="Lateral" stylesheets="@../../../Css/principal.css" />
+        </left>
 
-    <left>
-        <TreeView fx:id="treeView" styleClass="Lateral" stylesheets="@../../../Css/principal.css" />
-    </left>
+        <center>
+            <StackPane style="-fx-background-color: #04293A;" BorderPane.alignment="CENTER">
+                <VBox fx:id="telaInicialBox" alignment="TOP_CENTER" spacing="10" stylesheets="@../../../Css/principal.css">
+                    <children>
+                        <Label styleClass="title" text="Sputnik" />
+                   <Button mnemonicParsing="false" onAction="#novoArquivo" styleClass="meio" text="Novo arquivo" />
+                        <Button fx:id="openFile" focusTraversable="false" mnemonicParsing="false" onAction="#abrirArquivo" onMouseClicked="#abrirArquivo" styleClass="meio" text="Abra arquivo" />
+                        <Label accessibleRole="BUTTON" styleClass="meio" text="Abra pasta" />
+                        <Label accessibleRole="BUTTON" styleClass="meio" text="Clone repositório Git" />
+                    </children>
+                </VBox>
 
-    <center>
-        <StackPane style="-fx-background-color: #04293A;" BorderPane.alignment="CENTER">
-            <VBox fx:id="telaInicialBox" alignment="TOP_CENTER" spacing="10" stylesheets="@../../../Css/principal.css">
-                <children>
-                    <Label styleClass="title" text="Sputnik" />
-               <Button mnemonicParsing="false" onAction="#novoArquivo" styleClass="meio" text="Novo arquivo" />
-                    <Button fx:id="openFile" focusTraversable="false" mnemonicParsing="false" onAction="#abrirArquivo" onMouseClicked="#abrirArquivo" styleClass="meio" text="Abra arquivo" />
-                    <Label accessibleRole="BUTTON" styleClass="meio" text="Abra pasta" />
-                    <Label accessibleRole="BUTTON" styleClass="meio" text="Clone repositório Git" />
-                </children>
-            </VBox>
+                      <TabPane fx:id="tabPane" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../Css/principal.css" tabClosingPolicy="ALL_TABS" />
+            </StackPane>
+        </center>
 
-                  <TabPane fx:id="tabPane" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../Css/principal.css" tabClosingPolicy="ALL_TABS" />
-        </StackPane>
-    </center>
-
-    <bottom>
-        <TextArea fx:id="outPut" editable="false" prefHeight="174.0" prefWidth="739.0" styleClass="outPut" stylesheets="@../../../Css/principal.css" BorderPane.alignment="CENTER" />
-    </bottom>
-</BorderPane>
+        <bottom>
+            <TextArea fx:id="outPut" prefHeight="174.0" prefWidth="739.0" styleClass="outPut" stylesheets="@../../../Css/principal.css" BorderPane.alignment="CENTER" />
+        </bottom>
+    </BorderPane>

@@ -1,203 +1,179 @@
-    @font-face {
-        font-family: 'Inter';
-        src: url("../fonts/Inter/Inter_18pt-Regular.ttf") format("opentype");
-    }
+        @font-face {
+            font-family: 'Inter';
+            src: url("../fonts/Inter/Inter_18pt-Regular.ttf") format("opentype");
+        }
 
-    @font-face {
-        font-family: "Jura";
-        src: url("../fonts/Jura/Jura-Regular.ttf");
-    }
-
-
-    .title {
-        -fx-font-family: "Jura", sans-serif;
-        -fx-font-size: 85px;
-        -fx-font-weight: bold;
-        -fx-text-fill: #E0E0E0;
-        -fx-padding: 0px 0 15px 0;
-    }
-
-    .meio {
-        -fx-font-family: "Inter";
-        -fx-font-size: 14px;
-        -fx-text-fill: #B0BEC5;
-        -fx-cursor: hand;
-        -fx-padding: 5px 10px;
-        -fx-alignment: center;
-        -fx-min-width: 200px;
-        -fx-background-color: #04293A;
-    }
-
-    .meio:hover {
-        -fx-text-fill: white;
-    }
-
-    /*Parte do editor de texto*/
-
-    .editor-texto, .editor-python {
-        -fx-font-family: "Inter";
-        -fx-font-size: 14px;
-        -fx-background-color: #1B1B1B;
-        -fx-prompt-text-fill: #4f5d72;
-        -fx-control-inner-background: #032230;
-        -fx-text-fill: #eeea75;
-    }
-
-    .editor-python .paragraph-box {
-        -fx-font-family: "Inter";
-        -fx-text-fill: #eeea75;
-        -fx-font-size: 14px;
-        -fx-background-color: #032230;
-    }
-
-    /*Acaba Aqui*/
+        @font-face {
+            font-family: "Jura";
+            src: url("../fonts/Jura/Jura-Regular.ttf");
+        }
 
 
-    /*barra ali de cima*/
+        .title {
+            -fx-font-family: "Jura", sans-serif;
+            -fx-font-size: 85px;
+            -fx-font-weight: bold;
+            -fx-text-fill: #E0E0E0;
+            -fx-padding: 0px 0 15px 0;
+        }
 
-    .menu-bar .menu {
-        -fx-background-color: #04293A;
-    }
+        .meio {
+            -fx-font-family: "Inter";
+            -fx-font-size: 14px;
+            -fx-text-fill: #B0BEC5;
+            -fx-cursor: hand;
+            -fx-padding: 5px 10px;
+            -fx-alignment: center;
+            -fx-min-width: 200px;
+            -fx-background-color: #04293A;
+        }
 
-    .menu-bar .menu:hover {
-        -fx-background-color: #003246;
-    }
+        .meio:hover {
+            -fx-text-fill: white;
+        }
 
-    .menu-item {
-        -fx-font-family: "Inter";
-        -fx-font-size: 14px;
-        -fx-text-fill: #B0BEC5;
-        -fx-cursor: hand;
-        -fx-padding: 5px 10px;
-        -fx-alignment: center;
-        -fx-background-color: #04293A;
-        -fx-border-radius: 0.5;
-    }
+        /*Parte do editor de texto*/
 
-    .menu-item:hover {
-        -fx-background-color: #003246;
-        -fx-background-radius: 5px;
-    }
+        .editor-texto{
+            -fx-font-family: "Inter";
+            -fx-padding: 2px 2px 2px 2px;
+            -fx-font-size: 14px;
+            -fx-background-color: #032230;
+            -fx-prompt-text-fill: #4f5d72;
+            -fx-control-inner-background: #032230;
+            -fx-text-fill: #eeea75;
+        }
 
-    .context-menu {
-        -fx-background-color: #04293A;
-        -fx-border-width: 1px;
-        -fx-border-color: #2E3A47;
-        -fx-border-radius: 5px;
-        -fx-background-radius: 5px;
-
-    }
-
-    .menu-bar {
-        -fx-background-color: #04293A;
-        -fx-padding: 5px 0px 4px 5px;
-        -fx-border-width: 1px;
-        -fx-border-color: #2E3A47;
-        -fx-border-insets: 1px 0px 0px 0px;
-    }
-
-    .menu-bar .label {
-        -fx-text-fill: #E0E0E0;
-        -fx-font-size: 14px;
-    }
-
-    .button-compile {
-        -fx-background-color: rgb(0, 50, 70);
-        -fx-background-radius: 47%;
-        -fx-min-width: 30px;
-        -fx-min-height: 30px;
-        -fx-max-width: 30px;
-        -fx-max-height: 30px;
-        -fx-alignment: center;
-    }
+        /*Acaba Aqui*/
 
 
-    /*Acabou de novo*/
+        /*barra ali de cima*/
 
-   .tab-pane *.tab-header-background {
-       -fx-background-color: #032230;
-   }
+        .menu-bar .menu {
+            -fx-background-color: #04293A;
+        }
 
-    .tab-pane .tab {
-        -fx-background-insets: 0;
-        -fx-padding: 5 10 5 10;
-        -fx-background-color: #032230;
-        -fx-background-radius: 0px;
-        -fx-border-radius: 0px;
-    }
+        .menu-bar .menu:hover {
+            -fx-background-color: rgba(107, 87, 44, 0.83);
+            -fx-background-radius: 5px;
+        }
 
-    .tab-pane .tab:selected {
-        -fx-background-color: #032230;
-        -fx-border-width: 0 0 2 0;
-        -fx-border-color: #a4af9d;
+        .menu-item {
+            -fx-font-family: "Inter";
+            -fx-font-size: 14px;
+            -fx-text-fill: #B0BEC5;
+            -fx-cursor: hand;
+            -fx-padding: 5px 10px;
+            -fx-alignment: center;
+            -fx-background-color: #04293A;
+            -fx-border-radius: 0.5;
+        }
 
-    }
+        .menu-item:hover {
+            -fx-background-color: #003246;
+            -fx-background-radius: 5px;
+        }
 
-    .tab-pane .tab .tab-label {
-        -fx-text-fill: white;
-        -fx-font-family: Inter;
-        -fx-font-size: 13px;
-    }
+        .context-menu {
+            -fx-background-color: #04293A;
+            -fx-border-width: 1px;
+            -fx-border-color: #2E3A47;
+            -fx-border-radius: 5px;
+            -fx-background-radius: 5px;
 
-    /*Lateral*/
+        }
 
-    .Lateral{
-        -fx-text-fill: white;
-        -fx-font-family: Inter;
-        -fx-control-inner-background: #04293A;
-        -fx-border-color: #2E3A47;
-    }
+        .menu-bar {
+            -fx-background-color: #04293A;
+            -fx-padding: 5px 0px 4px 5px;
+            -fx-border-width: 1px;
+            -fx-border-color: #2E3A47;
+            -fx-border-insets: 1px 0px 0px 0px;
+        }
 
-    /*Sintaxe*/
+        .menu-bar .label {
+            -fx-text-fill: #E0E0E0;
+            -fx-font-size: 14px;
+        }
 
-    .letras{
-        -fx-text-fill: #eeea75;
-        -fx-font-family: Inter;
-        -fx-font-size: 13px;
-    }
+        .compbtn {
+            -fx-background-color: rgba(4, 41, 58, 0);
+            -fx-alignment: center;
+        }
 
-    .keyword {
-        -fx-fill: #cc7832;
-        -fx-font-weight: bold;
-    }
-    .string {
-        -fx-fill: #6a8759;
-    }
-    .comment {
-        -fx-fill: #808080;
-    }
 
-    /*OutPut*/
 
-    .outPut{
-        -fx-control-inner-background: #04293A;
-        -fx-background-color: #04293A;
-        -fx-border-width: 1 0 0 0;
-        -fx-border-color: #2E3A47;
-    }
-    /*IA*/
-    .popup{
-        -fx-background-color: #2a3b4c;
-    }
-    .entrada{
-      -fx-font-family: "Jura";
-       -fx-font-size: 20px;
-       -fx-text-fill: white;
-    }
-     .saida{
-           -fx-font-family: "Jura";
+        /*Acabou de novo*/
+
+       .tab-pane *.tab-header-background {
+           -fx-background-color: #032230;
+       }
+
+        .tab-pane .tab {
+            -fx-background-insets: 0;
+            -fx-padding: 5 10 5 10;
+            -fx-background-color: #032230;
+            -fx-background-radius: 0px;
+            -fx-border-radius: 0px;
+        }
+
+        .tab-pane .tab:selected {
+            -fx-background-color: #032230;
+            -fx-border-width: 0 0 2 0;
+            -fx-border-color: #a4af9d;
+
+        }
+
+        .tab-pane .tab .tab-label {
+            -fx-text-fill: white;
+            -fx-font-family: Inter;
+            -fx-font-size: 13px;
+        }
+
+        /*Lateral*/
+
+        .Lateral{
+            -fx-text-fill: white;
+            -fx-font-family: Inter;
+            -fx-control-inner-background: #04293A;
+            -fx-border-color: #2E3A47;
+        }
+
+        /*Sintaxe*/
+
+
+
+        /*OutPut*/
+
+        .outPut{
+            -fx-control-inner-background: #04293A;
+            -fx-background-color: #04293A;
+            -fx-border-width: 1 0 0 0;
+            -fx-border-color: #2E3A47;
+        }
+        /*IA*/
+        .popup{
+            -fx-background-color: #2a3b4c;
+        }
+        .entrada{
+          -fx-font-family: "Jura";
            -fx-font-size: 20px;
            -fx-text-fill: white;
-     }
-     .botao{
-        -fx-font-family: "Jura";
-        -fx-font-size: 15px;
-     }
-     .input-area{
-        -fx-text-fill: black;
-        -fx-font-size: 14px;
-     }
-      .output-area{
-             -fx-text-fill: black;
-             -fx-font-size: 14px;
-          }
+        }
+         .saida{
+               -fx-font-family: "Jura";
+               -fx-font-size: 20px;
+               -fx-text-fill: white;
+         }
+         .botao{
+            -fx-font-family: "Jura";
+            -fx-font-size: 15px;
+         }
+         .input-area{
+            -fx-text-fill: black;
+            -fx-font-size: 14px;
+         }
+          .output-area{
+                 -fx-text-fill: black;
+                 -fx-font-size: 14px;
+              }
