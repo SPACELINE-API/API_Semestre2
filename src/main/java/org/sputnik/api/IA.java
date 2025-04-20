@@ -39,4 +39,11 @@ public class IA {
         OllamaResult response = ollamaAPI.generate("qwen2.5-coder:7b", promptBuilder.build(), raw, new OptionsBuilder().build());
         return response.getResponse();
     }
+
+    public static String getTraducaoIA(String resposta, String linguagem) throws Exception {
+        if (resposta == null || resposta.isEmpty()) {
+            return "Entrada de texto vazia. Por favor, forneça um código para tradução ou selecione um arquivo.";
+        }
+        return "Tradução de " + linguagem;
+    }
 }

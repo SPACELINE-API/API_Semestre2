@@ -40,8 +40,8 @@
                     <Menu mnemonicParsing="false" text="Sugestões" />
                 <Menu mnemonicParsing="false" text="Tradução">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Kotlin" />
-                      <MenuItem mnemonicParsing="false" text="Binário" />
+                    <MenuItem mnemonicParsing="false" text="Kotlin" userData="Kotlin" onAction="#traduzirLinguagem"/>
+                      <MenuItem mnemonicParsing="false" text="Assembly" userData="Assembly" onAction="#traduzirLinguagem"/>
                   </items>
                 </Menu>
                 <Menu fx:id="execBtn" mnemonicParsing="false">
