@@ -36,7 +36,11 @@
                         </items>
                     </Menu>
 
-                    <Menu mnemonicParsing="false" text="Sugestões" />
+                    <Menu mnemonicParsing="false" text="Sugestões">
+                        <items>
+                            <MenuItem text="Obter sugestão do seu código!" onAction="#sugerir" />
+                        </items>
+                    </Menu>
                 <Menu mnemonicParsing="false" text="Tradução">
                   <items>
                     <MenuItem mnemonicParsing="false" text="Kotlin" userData="Kotlin" onAction="#traduzirLinguagem"/>

@@ -357,6 +357,63 @@ public class Controlador implements Initializable {
         popup.show();
     }
 
+    @FXML
+    void sugerir() {
+        Stage popup = new Stage();
+        popup.setTitle("Sugestão de Código");
+
+        TextArea input = new TextArea();
+        input.setPromptText("Digite seu código aqui...");
+        input.setWrapText(true);
+        input.getStyleClass().add("input-area");
+        input.setPrefWidth(350);
+        input.setPrefHeight(400);
+
+        Button btnSugerir = new Button("Gerar Sugestão");
+        btnSugerir.getStyleClass().add("botao");
+
+        TextArea output = new TextArea();
+        output.setEditable(false);
+        output.setWrapText(true);
+        output.getStyleClass().add("output-area");
+        output.setPrefWidth(350);
+        output.setPrefHeight(400);
+
+        btnSugerir.setOnAction(e -> {
+            String entrada = input.getText();
+            output.setText("Aguarde...");
+            new Thread(() -> {
+                try {
+                    String resposta = IA.getSugestaoIA(entrada);
+                    javafx.application.Platform.runLater(() -> output.setText(resposta));
+                } catch (Exception ex) {
+                    javafx.application.Platform.runLater(() -> output.setText("Erro ao tentar obter sugestão: " + ex.getMessage()));
+                    ex.printStackTrace();
+                }
+            }).start();
+        });
+
+        VBox layout = new VBox(10);
+        layout.setStyle("-fx-padding: 30;");
+        Label entradaLabel = new Label("Entrada");
+        entradaLabel.getStyleClass().add("entrada");
+        Label saidaLabel = new Label("Saída");
+        saidaLabel.getStyleClass().add("saida");
+
+        layout.getChildren().addAll(entradaLabel, input, btnSugerir, saidaLabel, output);
+        layout.getStyleClass().add("popup");
+
+        Scene scene = new Scene(layout, 400, 450);
+        scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
+        popup.setScene(scene);
+
+        if (tabPane != null && tabPane.getScene() != null) {
+            popup.initOwner(tabPane.getScene().getWindow());
+        }
+
+        popup.show();
+    }
+
 
     @FXML
     void ajuda() {
