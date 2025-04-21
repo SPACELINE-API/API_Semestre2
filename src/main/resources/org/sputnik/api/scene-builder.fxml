@@ -27,8 +27,7 @@
                     </Menu>
                     <Menu mnemonicParsing="false" text="Ajuda">
                         <items>
-                            <MenuItem mnemonicParsing="false" text="Sobre" />
-                      <MenuItem mnemonicParsing="false" text="Inteligência Artificial" />
+                            <MenuItem mnemonicParsing="false" text="Sobre a IDE" onAction="#ajuda"/>
                         </items>
                     </Menu>
                     <Menu mnemonicParsing="false" text="Explicação">

@@ -2,19 +2,18 @@ package org.sputnik.api;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.text.Text;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.fxmisc.richtext.CodeArea;
-import org.w3c.dom.Text;
-
 import java.io.*;
 import java.net.URL;
 import java.util.*;
-
+import javafx.geometry.Rectangle2D;
+import javafx.stage.Screen;
 
 
 public class Controlador implements Initializable {
@@ -288,6 +287,7 @@ public class Controlador implements Initializable {
         popup.show();
     }
 
+
     @FXML
     void traduzirLinguagem (javafx.event.ActionEvent event) {
         MenuItem item = (MenuItem) event.getSource();
@@ -357,4 +357,77 @@ public class Controlador implements Initializable {
         popup.show();
     }
 
+
+    @FXML
+    void ajuda() {
+        Stage popup = new Stage();
+        popup.setTitle("Ajuda");
+
+        Rectangle2D tela = Screen.getPrimary().getVisualBounds();
+        double largulaTela = tela.getWidth();
+        Label label = new Label("Bem-vindo à Sputnik! \uD83D\uDC0D");
+        label.getStyleClass().add("titulo");
+        Text text = new Text("Sputnik é um ambiente de desenvolvimento integrado (IDE) criado especialmente para facilitar a escrita, execução e organização de seus projetos em Python. ");
+        text.getStyleClass().add("conteudo");
+        text.setWrappingWidth(largulaTela - 50);
+        Label label2 = new Label("\uD83D\uDD27 O que você pode fazer aqui:");
+        label2.getStyleClass().add("titulo");
+        Text text2 = new Text("Criar, abrir e salvar arquivos .py\n" +
+                "\n" +
+                "Executar seu código Python diretamente na IDE\n" +
+                "\n" +
+                "Clonar repositórios do GitHub\n" +
+                "\n" +
+                "Salvar arquivos em .kps e .asm");
+        text2.getStyleClass().add("conteudo");
+        text2.setWrappingWidth(largulaTela - 50);
+        Label label3 = new Label("\uD83D\uDCA1 Assistente de IA");
+        label3.getStyleClass().add("titulo");
+        Text text3 = new Text("A Sputnik utiliza inteligência artificial para auxiliar os desenvolvedores. Algumas de suas funcionalidades são:\n" +
+                "\n" +
+                "Sugestão de trechos de código\n" +
+                "\n" +
+                "Explicação do código\n" +
+                "\n" +
+                "Tradução de código Python para a linguagem Kotlin\n" +
+                "\n" +
+                "Tradução de código Python para a linguagem Assembly");
+        text3.getStyleClass().add("conteudo");
+        text3.setWrappingWidth(largulaTela - 50);
+        Label label4 = new Label("\uD83D\uDCCC Dicas\n");
+        label4.getStyleClass().add("subtitulo");
+        Text text4 = new Text("Quanto mais contexto no código, melhores as sugestões\n" +
+                "\n" +
+                "Revise sempre as sugestões antes de confirmar\n" +
+                "\n" +
+                "Você pode editar ou ignorar qualquer sugestão");
+        text4.getStyleClass().add("conteudo");
+        text4.setWrappingWidth(largulaTela - 50);
+        Label label5 = new Label("\uD83E\uDDE0 Limitações");
+        label5.getStyleClass().add("subtitulo");
+        Text text5 = new Text("A IA não garante que o código seja 100% correto ou otimizado\n" +
+                "\n" +
+                "Não substitui revisão humana nem testes manuais\n" +
+                "\n");
+        text5.getStyleClass().add("conteudo");
+        text5.setWrappingWidth(largulaTela - 50);
+
+        VBox layout = new VBox(10);
+        layout.setStyle("-fx-padding: 30;");
+
+        layout.getChildren().addAll(label, text, label2, text2, label3, text3, label4, text4, label5, text5);
+        layout.getStyleClass().add("popup");
+
+        ScrollPane scrollPane = new ScrollPane(layout);
+        scrollPane.setFitToWidth(true);
+        Scene scene = new Scene(scrollPane, 650, 550);
+        scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
+        popup.setScene(scene);
+
+        if (tabPane != null && tabPane.getScene() != null) {
+            popup.initOwner(tabPane.getScene().getWindow());
+        }
+
+        popup.show();
+    }
 }

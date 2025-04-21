@@ -153,7 +153,7 @@
         }
         /*IA*/
         .popup{
-            -fx-background-color: #2a3b4c;
+            -fx-background-color: #021f2d;
         }
         .entrada{
           -fx-font-family: "Jura";
@@ -176,4 +176,21 @@
           .output-area{
                  -fx-text-fill: black;
                  -fx-font-size: 14px;
-              }
+         }
+
+         .titulo {
+            -fx-font-family: "Jura";
+            -fx-font-size: 20px;
+            -fx-text-fill: #ADD8E6;
+            -fx-padding: 20 0 0 0;
+         }
+
+         .conteudo {
+            -fx-font-family: "Inter";
+            -fx-font-size: 14px;
+            -fx-fill: white;
+         }
+
+         .subtitulo {
+            -fx-padding: 10 0 0 0;
+         }
