@@ -46,4 +46,33 @@ public class IA {
         }
         return "Tradução de " + linguagem;
     }
+
+    public static String getSugestaoIA(String resposta) throws Exception {
+        if (resposta == null || resposta.isEmpty()) {
+            return "Entrada de texto vazia. Por favor, forneça um código para sugestão.";
+        }
+
+        ollamaAPI.setRequestTimeoutSeconds(400);
+
+        PromptBuilder promptBuilder = new PromptBuilder()
+                .addLine("Você é uma IA especialista em Python.")
+                .addSeparator()
+                .addLine("Sua tarefa é checar lógica e melhora-lá se preciso, reescrever o código recebido da forma mais clara, além de garantir a eficiência do código.")
+                .addLine("Se o código já estiver bom (lógica correta e funcionamento eficiente), apenas reorganize e comente cada parte para melhor compreensão.")
+                .addSeparator()
+                .addLine("IMPORTANTE:")
+                .addLine("- A resposta deve conter SOMENTE código.")
+                .addLine("- Toda explicação deve estar APENAS em comentários da linguagem (Python).")
+                .addLine("- NÃO use markdown, títulos, docstrings ou qualquer texto fora do código.")
+                .addLine("- NÃO adicione exemplos de uso, prints ou saídas.")
+                .addLine("- A resposta correta deve ser apenas o código com comentários embutidos.")
+                .addLine("- Sua resposta será automaticamente rejeitada se usar markdown (```python).")
+                .addSeparator()
+                .add(resposta);
+
+
+        boolean raw = false;
+        OllamaResult response = ollamaAPI.generate("qwen2.5-coder:7b", promptBuilder.build(), raw, new OptionsBuilder().build());
+        return response.getResponse();
+    }
 }
