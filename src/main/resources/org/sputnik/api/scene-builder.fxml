@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.TextField?>
 <BorderPane fx:id="TelaInicial" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sputnik.api.Controlador">
 
         <top>
@@ -40,8 +39,7 @@
                     <Menu mnemonicParsing="false" text="Sugestões" />
                 <Menu mnemonicParsing="false" text="Tradução">
                   <items>
-                    <MenuItem mnemonicParsing="false" onAction="#traduzirLinguagem" text="Kotlin" userData="Kotlin" />
-                      <MenuItem mnemonicParsing="false" onAction="#traduzirLinguagem" text="Assembly" userData="Assembly" />
+                    <MenuItem mnemonicParsing="false" onAction="#traduzirLinguagem" text="Binário" userData="Kotlin" />
                   </items>
                 </Menu>
                 <Menu fx:id="execBtn" mnemonicParsing="false">

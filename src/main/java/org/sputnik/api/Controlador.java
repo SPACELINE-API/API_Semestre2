@@ -177,7 +177,6 @@ public class Controlador implements Initializable {
     void compilar() {
         System.out.println("Método compilar chamado");
         Tab abaSelecionada = tabPane.getSelectionModel().getSelectedItem();
-
         if (abaSelecionada == null) {
             outPut.setText("Nenhuma aba selecionada.");
             return;
@@ -195,7 +194,7 @@ public class Controlador implements Initializable {
 
         new Thread(() -> {
             try {
-                String resultado = executarPythonComJython(codigo);
+                String resultado = executarPython(codigo);
                 javafx.application.Platform.runLater(() -> outPut.setText(resultado));
             } catch (Exception e) {
                 javafx.application.Platform.runLater(() -> outPut.setText("Erro ao executar: " + e.getMessage()));
@@ -204,20 +203,29 @@ public class Controlador implements Initializable {
         }).start();
     }
 
-    private String executarPythonComJython(String codigoPython) {
+    private String executarPython(String codigoPython) throws IOException, InterruptedException {
+
+        File temp = File.createTempFile("codigo_temp", ".py");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(temp))) {
+            writer.write(codigoPython);
+        }
+
+        ProcessBuilder pb = new ProcessBuilder("python", temp.getAbsolutePath());
+        pb.redirectErrorStream(true); // junta stdout e stderr
+        Process process = pb.start();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         StringBuilder saida = new StringBuilder();
+        String linha;
+        while ((linha = reader.readLine()) != null) {
+            saida.append(linha).append("\n");
+        }
 
-        // Cria um PythonInterpreter para executar o código Python
-        PythonInterpreter interpreter = new PythonInterpreter();
+        int exitCode = process.waitFor();
+        temp.delete();
 
-        // Captura a saída do Python para uma StringBuilder
-        interpreter.setOut(new PrintWriter(new StringWriter()));
-
-        // Executa o código Python no Jython
-        interpreter.exec(codigoPython);
-
-        return saida.toString();
+        return "Código finalizado com código de saída " + exitCode + ":\n" + saida.toString();
     }
+
 
 
 
