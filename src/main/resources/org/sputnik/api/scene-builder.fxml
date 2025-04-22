@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.TextField?>
 <BorderPane fx:id="TelaInicial" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sputnik.api.Controlador">
 
         <top>
@@ -27,7 +28,7 @@
                     </Menu>
                     <Menu mnemonicParsing="false" text="Ajuda">
                         <items>
-                            <MenuItem mnemonicParsing="false" text="Sobre a IDE" onAction="#ajuda"/>
+                            <MenuItem mnemonicParsing="false" onAction="#ajuda" text="Sobre a IDE" />
                         </items>
                     </Menu>
                     <Menu mnemonicParsing="false" text="Explicação">
@@ -39,8 +40,8 @@
                     <Menu mnemonicParsing="false" text="Sugestões" />
                 <Menu mnemonicParsing="false" text="Tradução">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Kotlin" userData="Kotlin" onAction="#traduzirLinguagem"/>
-                      <MenuItem mnemonicParsing="false" text="Assembly" userData="Assembly" onAction="#traduzirLinguagem"/>
+                    <MenuItem mnemonicParsing="false" onAction="#traduzirLinguagem" text="Kotlin" userData="Kotlin" />
+                      <MenuItem mnemonicParsing="false" onAction="#traduzirLinguagem" text="Assembly" userData="Assembly" />
                   </items>
                 </Menu>
                 <Menu fx:id="execBtn" mnemonicParsing="false">
