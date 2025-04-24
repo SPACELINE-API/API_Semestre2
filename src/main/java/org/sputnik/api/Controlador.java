@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.*;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
-import org.python.util.PythonInterpreter;
+
 
 
 public class Controlador implements Initializable {
