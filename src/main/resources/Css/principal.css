@@ -54,7 +54,7 @@
         }
 
         .menu-bar .menu:hover {
-            -fx-background-color: rgba(107, 87, 44, 0.84);
+            -fx-background-color: rgba(107, 87, 44, 0.35) ;
             -fx-background-radius: 5px;
         }
 
