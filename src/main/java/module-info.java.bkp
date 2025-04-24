@@ -12,8 +12,11 @@ module org.sputnik.api {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires ollama4j;
+    requires reactfx;
     requires java.desktop;
-    requires org.python.jython2;
+    requires org.fxmisc.richtext;
+    requires java.sql;
+    requires jython;
 
     opens org.sputnik.api to javafx.fxml;
     exports org.sputnik.api;

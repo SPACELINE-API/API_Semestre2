@@ -10,13 +10,14 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
-
-
 
 public class Controlador implements Initializable {
 
@@ -262,6 +263,7 @@ public class Controlador implements Initializable {
             new Thread(() -> {
                 try {
                     String resposta = IA.getRespostaIA(entrada);
+                    DatabaseManager.salvarExplicacao(entrada, resposta);
                     javafx.application.Platform.runLater(() -> output.setText(resposta));
                 } catch (Exception ex) {
                     javafx.application.Platform.runLater(() -> output.setText("Erro ao tentar obter explicação: " + ex.getMessage()));
@@ -314,11 +316,6 @@ public class Controlador implements Initializable {
         input.setPrefWidth(350);
         input.setPrefHeight(400);
 
-
-        Button btnTraduzir = new Button("Traduzir o código");
-        btnTraduzir.getStyleClass().add("botao");
-
-
         TextArea output = new TextArea();
         output.setEditable(false);
         output.setWrapText(true);
@@ -326,6 +323,8 @@ public class Controlador implements Initializable {
         output.setPrefWidth(350);
         output.setPrefHeight(400);
 
+        Button btnTraduzir = new Button("Traduzir o código");
+        btnTraduzir.getStyleClass().add("botao");
 
         btnTraduzir.setOnAction(e -> {
             String entrada = input.getText();
@@ -483,6 +482,39 @@ public class Controlador implements Initializable {
         ScrollPane scrollPane = new ScrollPane(layout);
         scrollPane.setFitToWidth(true);
         Scene scene = new Scene(scrollPane, 650, 550);
+        scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
+        popup.setScene(scene);
+
+        if (tabPane != null && tabPane.getScene() != null) {
+            popup.initOwner(tabPane.getScene().getWindow());
+        }
+
+        popup.show();
+    }
+    @FXML
+    void mostrarHistorico() {
+        Stage popup = new Stage();
+        popup.setTitle("Histórico de Explicações");
+
+        TableView<Historico> tableView = new TableView<>();
+        TableColumn<Historico, String> codigoColumn = new TableColumn<>("Código");
+        codigoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+
+        TableColumn<Historico, String> explicacaoColumn = new TableColumn<>("Explicação");
+        explicacaoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExplicacao()));
+
+        tableView.getColumns().add(codigoColumn);
+        tableView.getColumns().add(explicacaoColumn);
+
+        ObservableList<Historico> historicoList = DatabaseManager.carregarHistorico();
+        tableView.setItems(historicoList);
+
+        VBox layout = new VBox(10);
+        layout.setStyle("-fx-padding: 30;");
+        layout.getChildren().add(tableView);
+        layout.getStyleClass().add("popup");
+
+        Scene scene = new Scene(layout, 500, 300);
         scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
         popup.setScene(scene);
 
