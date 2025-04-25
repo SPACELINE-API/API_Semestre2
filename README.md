@@ -16,13 +16,12 @@
 
   ## :card_index: Sprints
   
-  Sprint | Previsão | Status|
-  |------|--------|------|
-  |Kick Off Geral | 24/02/2025 - 28/02/2025 | Concluído |
-  |01| 10/03/2025 - 30/03/2025 | Concluído |
-  |02| 07/04/2025 - 27/04/2025 | em andamento |
+  Sprint | Previsão | Status| Link
+  |------|--------|------|------|
+  |Kick Off Geral | 24/02/2025 - 28/02/2025 | Concluído | |
+  |01| 10/03/2025 - 30/03/2025 | Concluído | https://github.com/SPACELINE-API/API_Semestre2/tree/API-1-Sprint |
+  |02| 07/04/2025 - 27/04/2025 | em andamento | https://github.com/SPACELINE-API/API_Semestre2/tree/API-2-Sprint |
   |03| 05/05/2025 - 25/05/2025 | a fazer |
-  |Feira de Soluções|29/05/2025 |a fazer |
 
 
   # Objetivo do Projeto
