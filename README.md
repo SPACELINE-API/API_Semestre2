@@ -7,7 +7,7 @@
   Uso de estratégias para entender o problema, conceber uma solução viável ao desenvolver e implementar o MVP seguido de sua operação (CDIO). 
   Os resultados dos projetos devem obedecer ao Aviso Legal disponível no site da Fatec SJC com definição das datas do kickoff e das sprints
 
-  ## :card_index: Sprints
+  ## :card_index: Sprint
   
   Sprint | Previsão | Status|
   |------|--------|------|
