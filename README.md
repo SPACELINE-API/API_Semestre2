@@ -77,7 +77,6 @@ Clique na imagem abaixo para uma demonstração.
 | Scrum Master  | Julia Roberta Ferreira Prianti |      [![GitHub Badge](https://img.shields.io/badge/GitHub-111217?style=flat-square&logo=github&logoColor=white)](https://github.com/juliaprianti06)     |
 | Team Member   | Yasmin Cristina Padilha              |         [![GitHub Badge](https://img.shields.io/badge/GitHub-111217?style=flat-square&logo=github&logoColor=white)](https://github.com/yaspadilha)|
 |  Team Member  | Letícia Gabriele de Oliveira Lopes                 |         [![GitHub Badge](https://img.shields.io/badge/GitHub-111217?style=flat-square&logo=github&logoColor=white)](https://github.com/Leti-10)        |
-|  Team Member  | André de Lima Gonçalves       |           [![GitHub Badge](https://img.shields.io/badge/GitHub-111217?style=flat-square&logo=github&logoColor=white)](https://github.com/DevAndre9312)          |
 |  Team Member  | Raul Germano Rosendo de Oliveira Duarte       |           [![GitHub Badge](https://img.shields.io/badge/GitHub-111217?style=flat-square&logo=github&logoColor=white)](https://github.com/Raul-Germano-Rosendo)          |
 |  Team Member  | Gabriel Sarubi Motta Fereira       |           [![GitHub Badge](https://img.shields.io/badge/GitHub-111217?style=flat-square&logo=github&logoColor=white)](https://github.com/GabrielSarubi-7)          |
 |  Team Member  | João Álvaro Oliveira Silva       |           [![GitHub Badge](https://img.shields.io/badge/GitHub-111217?style=flat-square&logo=github&logoColor=white)](https://github.com/JoaoAlv4ro)          |
