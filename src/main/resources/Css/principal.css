@@ -99,6 +99,7 @@
         .compbtn {
             -fx-background-color: rgba(4, 41, 58, 0);
             -fx-alignment: center;
+            -fx-text-fill: #E0E0E0;
         }
 
 

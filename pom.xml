@@ -94,6 +94,11 @@
             <version>2.7.4</version>
         </dependency>
         <dependency>
+            <groupId>com.fifesoft</groupId>
+            <artifactId>rsyntaxtextarea</artifactId>
+            <version>3.6.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.github.almasb</groupId>
             <artifactId>fxgl</artifactId>
             <version>17.3</version>
@@ -140,7 +145,6 @@
                 <version>0.0.8</version>
                 <executions>
                     <execution>
-                        <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>org.sputnik.interfacedozero/org.sputnik.api.Main

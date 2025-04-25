@@ -1,8 +1,17 @@
 package org.sputnik.api;
 
 
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -10,18 +19,32 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.*;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
+import org.fife.ui.rsyntaxtextarea.SyntaxScheme;
+import org.fife.ui.rsyntaxtextarea.TokenTypes;
+import org.fife.ui.rtextarea.RTextScrollPane;
 
+import javax.swing.*;
 
 
 public class Controlador implements Initializable {
 
     @FXML
     private TreeView<String> treeView;
+    private final Map<TreeItem<String>, Tab> itemParaAba = new HashMap<>();
+    private final Map<String, File> nomeParaArquivo = new HashMap<>();
+    private FileChooser fileChooser = new FileChooser();
+    private Map<Tab, File> arquivosAbertos = new HashMap<>();
 
     @FXML
     private TabPane tabPane;
@@ -33,17 +56,12 @@ public class Controlador implements Initializable {
     private TextArea outPut;
 
 
-    private FileChooser fileChooser = new FileChooser();
-    private Map<Tab, File> arquivosAbertos = new HashMap<>();
-    private Map<String, File> nomeParaArquivo = new HashMap<>(); // Para TreeView
 
 
     /*treeview*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         configurarTreeView();
-
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home") + "/Downloads"));
 
         tabPane.setVisible(false);
         tabPane.setMouseTransparent(true);
@@ -59,10 +77,7 @@ public class Controlador implements Initializable {
                 tabPane.setMouseTransparent(false);
             }
         });
-
-
     }
-
 
     private void configurarTreeView() {
         TreeItem<String> raiz = new TreeItem<>("Arquivos");
@@ -73,7 +88,7 @@ public class Controlador implements Initializable {
 
         treeView.setOnMouseClicked(event -> {
             TreeItem<String> item = treeView.getSelectionModel().getSelectedItem();
-            if (item != null && nomeParaArquivo.containsKey(item.getValue())) {
+            if (item != null && item.getParent() != null && nomeParaArquivo.containsKey(item.getValue())) {
                 File arquivo = nomeParaArquivo.get(item.getValue());
                 abrirArquivoDireto(arquivo);
             }
@@ -81,26 +96,25 @@ public class Controlador implements Initializable {
     }
 
     private void adicionarArquivoNaTreeView(File arquivo) {
+        if (arquivo == null) return;
+
         TreeItem<String> raiz = treeView.getRoot();
         String nome = arquivo.getName();
+        nomeParaArquivo.put(nome, arquivo);
+
         boolean jaExiste = raiz.getChildren().stream()
                 .anyMatch(child -> child.getValue().equals(nome));
+
         if (!jaExiste) {
             TreeItem<String> novoItem = new TreeItem<>(nome);
             raiz.getChildren().add(novoItem);
-            nomeParaArquivo.put(nome, arquivo);
+            itemParaAba.put(novoItem, tabPane.getSelectionModel().getSelectedItem());
         }
     }
 
     /*Abrir arquivos*/
-    @FXML
-    void abrirArquivo(ActionEvent event) {
-        File file = fileChooser.showOpenDialog(new Stage());
-        if (file != null) {
-            abrirArquivoDireto(file);
-        }
-    }
 
+    @FXML
     private void abrirArquivoDireto(File file) {
         for (Tab aba : tabPane.getTabs()) {
             if (file.equals(arquivosAbertos.get(aba))) {
@@ -108,68 +122,116 @@ public class Controlador implements Initializable {
                 return;
             }
         }
+        if (file != null && file.exists()) {
+            try {
+                String conteudo = Files.readString(file.toPath(), StandardCharsets.UTF_8);
+                String linguagem = detectarLinguagem(file);
 
-        Tab novaAba = new Tab(file.getName());
-        TextArea editor = new TextArea();
-        editor.getStyleClass().add("editor-texto");
+                SwingNode swingNode = new SwingNode();
+                JComponent editorComScroll = EditorRSyntaxFactory.criarEditor(conteudo, linguagem);
+                SwingUtilities.invokeLater(() -> swingNode.setContent(editorComScroll));
 
+                StackPane conteudoAba = new StackPane(swingNode);
+                Tab novaAba = new Tab(file.getName());
+                novaAba.setContent(conteudoAba);
+                tabPane.getTabs().add(novaAba);
+                tabPane.getSelectionModel().select(novaAba);
 
-        novaAba.setContent(editor);
-        tabPane.getTabs().add(novaAba);
-        tabPane.getSelectionModel().select(novaAba);
-        arquivosAbertos.put(novaAba, file);
-
-        try (Scanner scanner = new Scanner(file)) {
-            while (scanner.hasNextLine()) {
-                editor.appendText(scanner.nextLine() + "\n");
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        adicionarArquivoNaTreeView(file);
-
-
-    }
-
-    @FXML
-    void novoArquivo() {
-        Tab novaAba = new Tab("Novo Arquivo");
-        TextArea editor = new TextArea();
-        editor.getStyleClass().add("editor-texto");
-        novaAba.setContent(editor);
-
-        tabPane.getTabs().add(novaAba);
-        tabPane.getSelectionModel().select(novaAba);
-
-        arquivosAbertos.put(novaAba, null);
-    }
-
-    @FXML
-    void salvarArquivo() {
-        Tab abaSelecionada = tabPane.getSelectionModel().getSelectedItem();
-        if (abaSelecionada != null) {
-            TextArea editor = (TextArea) abaSelecionada.getContent();
-            File arquivo = arquivosAbertos.get(abaSelecionada);
-
-            if (arquivo == null) {
-                arquivo = fileChooser.showSaveDialog(new Stage());
-                if (arquivo != null) {
-                    arquivosAbertos.put(abaSelecionada, arquivo);
-                    abaSelecionada.setText(arquivo.getName());
-                    adicionarArquivoNaTreeView(arquivo);
-                } else {
-                    return;
-                }
-            }
-
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo))) {
-                bw.write(editor.getText());
+                arquivosAbertos.put(novaAba, file);
+                adicionarArquivoNaTreeView(file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+         @FXML
+        void novoArquivo() {
+            SwingNode swingNode = new SwingNode();
+            JComponent editorComScroll = EditorRSyntaxFactory.criarEditor("", "python");
+            SwingUtilities.invokeLater(() -> swingNode.setContent(editorComScroll));
+            StackPane conteudoAba = new StackPane(swingNode);
+    
+            Tab novaAba = new Tab("Novo Arquivo");
+            novaAba.setContent(conteudoAba);
+            tabPane.getTabs().add(novaAba);
+            tabPane.getSelectionModel().select(novaAba);
+            arquivosAbertos.put(novaAba, null);
+        }
+    
+        @FXML
+        private void abrirArquivo(ActionEvent event) {
+            File file = fileChooser.showOpenDialog(new Stage());
+            if (file != null) {
+                try {
+                    String conteudo = Files.readString(file.toPath(), StandardCharsets.UTF_8);
+                    String linguagem = detectarLinguagem(file);
+    
+                    SwingNode swingNode = new SwingNode();
+                    JComponent editorComScroll = EditorRSyntaxFactory.criarEditor(conteudo, linguagem);
+                    SwingUtilities.invokeLater(() -> swingNode.setContent(editorComScroll));
+    
+                    StackPane conteudoAba = new StackPane(swingNode);
+    
+                    Tab novaAba = new Tab(file.getName());
+                    novaAba.setContent(conteudoAba);
+                    tabPane.getTabs().add(novaAba);
+                    tabPane.getSelectionModel().select(novaAba);
+    
+                    arquivosAbertos.put(novaAba, file);
+    
+                    adicionarArquivoNaTreeView(file);
+    
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    
+        private String detectarLinguagem(File file) {
+            String nome = file.getName().toLowerCase();
+            if (nome.endsWith(".py")) return "python";
+            if (nome.endsWith(".java")) return "java";
+            if (nome.endsWith(".js")) return "javascript";
+            if (nome.endsWith(".html")) return "html";
+            if (nome.endsWith(".c")) return "c";
+            if (nome.endsWith(".cpp")) return "cpp";
+            if (nome.endsWith(".txt")) return "text";
+            return "text";
+        }
+    
+        @FXML
+        void salvarArquivo() {
+            Tab abaSelecionada = tabPane.getSelectionModel().getSelectedItem();
+            if (abaSelecionada != null) {
+                Node content = ((Pane) abaSelecionada.getContent()).getChildrenUnmodifiable().get(0);
+                String texto = "";
+    
+                if (content instanceof SwingNode swingNode) {
+                    RSyntaxTextArea rSyntaxTextArea = (RSyntaxTextArea) ((RTextScrollPane) swingNode.getContent()).getTextArea();
+                    texto = rSyntaxTextArea.getText();
+                } else if (content instanceof TextArea textArea) {
+                    texto = textArea.getText();
+                }
+    
+                File arquivo = arquivosAbertos.get(abaSelecionada);
+                if (arquivo == null) {
+                    arquivo = fileChooser.showSaveDialog(new Stage());
+                    if (arquivo != null) {
+                        arquivosAbertos.put(abaSelecionada, arquivo);
+                        abaSelecionada.setText(arquivo.getName());
+                        adicionarArquivoNaTreeView(arquivo);
+                    } else {
+                        return;
+                    }
+                }
+    
+                try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo))) {
+                    bw.write(texto);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
     /*compilador*/
 
@@ -182,19 +244,33 @@ public class Controlador implements Initializable {
             return;
         }
 
-        TextArea editor = (TextArea) abaSelecionada.getContent();
-        String codigo = editor.getText();
+        Node conteudo = abaSelecionada.getContent();
+        String codigo = null;
+
+        if (conteudo instanceof TextArea editor) {
+            codigo = editor.getText();
+        } else if (conteudo instanceof StackPane stackPane && !stackPane.getChildren().isEmpty()) {
+            Node node = stackPane.getChildren().get(0);
+            if (node instanceof SwingNode swingNode) {
+                JComponent swingContent = swingNode.getContent();
+                if (swingContent instanceof RTextScrollPane scrollPane) {
+                    RSyntaxTextArea rsta = (RSyntaxTextArea) scrollPane.getTextArea();
+                    codigo = rsta.getText();
+                }
+            }
+        }
 
         if (codigo == null || codigo.isBlank()) {
-            outPut.setText("Código vazio.");
+            outPut.setText("Código vazio ou editor não identificado.");
             return;
         }
 
         outPut.setText("Executando...\n");
 
+        String finalCodigo = codigo;
         new Thread(() -> {
             try {
-                String resultado = executarPython(codigo);
+                String resultado = executarPython(finalCodigo);
                 javafx.application.Platform.runLater(() -> outPut.setText(resultado));
             } catch (Exception e) {
                 javafx.application.Platform.runLater(() -> outPut.setText("Erro ao executar: " + e.getMessage()));
@@ -202,6 +278,7 @@ public class Controlador implements Initializable {
             }
         }).start();
     }
+
 
     private String executarPython(String codigoPython) throws IOException, InterruptedException {
 
@@ -211,7 +288,7 @@ public class Controlador implements Initializable {
         }
 
         ProcessBuilder pb = new ProcessBuilder("python", temp.getAbsolutePath());
-        pb.redirectErrorStream(true); // junta stdout e stderr
+        pb.redirectErrorStream(true);
         Process process = pb.start();
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         StringBuilder saida = new StringBuilder();
@@ -227,6 +304,53 @@ public class Controlador implements Initializable {
     }
 
 
+    /*Sintaxe*/
+
+    public class EditorRSyntaxFactory {
+
+        public static JComponent criarEditor(String conteudo, String linguagem) {
+            RSyntaxTextArea textArea = new RSyntaxTextArea(30, 80);
+            textArea.setSyntaxEditingStyle(getSyntaxConstant(linguagem));
+            textArea.setCodeFoldingEnabled(true);
+            textArea.setText(conteudo);
+            textArea.setCaretPosition(0);
+            textArea.setAntiAliasingEnabled(true);
+
+            textArea.setBackground(Color.decode("#032230"));
+            textArea.setForeground(Color.decode("#eeea75"));
+            textArea.setCurrentLineHighlightColor(Color.decode("#2E3A47"));
+            textArea.setLineWrap(true);
+
+            SyntaxScheme scheme = textArea.getSyntaxScheme();
+            scheme = (SyntaxScheme) scheme.clone();
+
+            scheme.getStyle(TokenTypes.RESERVED_WORD).foreground = Color.decode("#b55685");  /*Palavras-chave*/
+            scheme.getStyle(TokenTypes.LITERAL_STRING_DOUBLE_QUOTE).foreground = Color.decode("#0ba460");  /*Strings*/
+            scheme.getStyle(TokenTypes.LITERAL_NUMBER_DECIMAL_INT).foreground = Color.decode("#ffb354");  /*Números*/
+            scheme.getStyle(TokenTypes.COMMENT_EOL).foreground = Color.decode("#5b858b");  /*Comentários de linha*/
+            scheme.getStyle(TokenTypes.COMMENT_MULTILINE).foreground = Color.decode("#5b858b");  /* Comentários de bloco*/
+            scheme.getStyle(TokenTypes.SEPARATOR).foreground = Color.decode("#4e53a9");
+
+            textArea.setSyntaxScheme(scheme);
+
+
+            return new RTextScrollPane(textArea);
+        }
+
+        private static String getSyntaxConstant(String linguagem) {
+            return switch (linguagem) {
+                case "python" -> SyntaxConstants.SYNTAX_STYLE_PYTHON;
+                case "java" -> SyntaxConstants.SYNTAX_STYLE_JAVA;
+                case "javascript" -> SyntaxConstants.SYNTAX_STYLE_JAVASCRIPT;
+                case "html" -> SyntaxConstants.SYNTAX_STYLE_HTML;
+                case "c" -> SyntaxConstants.SYNTAX_STYLE_C;
+                case "cpp" -> SyntaxConstants.SYNTAX_STYLE_CPLUSPLUS;
+                case "text" -> SyntaxConstants.SYNTAX_STYLE_NONE;
+                default -> SyntaxConstants.SYNTAX_STYLE_NONE;
+            };
+
+        }
+    }
 
 
     /*IA*/

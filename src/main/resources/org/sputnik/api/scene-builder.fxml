@@ -46,11 +46,11 @@
                     <MenuItem mnemonicParsing="false" onAction="#traduzirLinguagem" text="Binário" userData="Kotlin" />
                   </items>
                 </Menu>
-                <Menu fx:id="execBtn" mnemonicParsing="false">
+                <Menu fx:id="execBtn" mnemonicParsing="false" text="">
                <graphic>
-                  <Button fx:id="compbtn" alignment="TOP_CENTER" maxWidth="112.0" minHeight="0.0" mnemonicParsing="false" onAction="#compilar" styleClass="compbtn" text="▶" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#compilar" styleClass="compbtn" text="Run" wrapText="true">
                      <font>
-                        <Font name="Inter 18pt Regular" size="12.0" />
+                        <Font name="Inter 18pt Regular" size="14.0" />
                      </font>
                   </Button>
                </graphic></Menu>

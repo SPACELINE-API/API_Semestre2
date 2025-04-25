@@ -2,7 +2,6 @@ module org.sputnik.api {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
-    requires javafx.base;
 
     requires org.controlsfx.controls;
     requires com.dlsc.formsfx;
@@ -12,8 +11,9 @@ module org.sputnik.api {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires ollama4j;
-    requires java.desktop;
     requires org.python.jython2;
+    requires org.fife.RSyntaxTextArea;
+    requires javafx.swing;
 
     opens org.sputnik.api to javafx.fxml;
     exports org.sputnik.api;
