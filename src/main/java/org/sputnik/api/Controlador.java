@@ -1,6 +1,5 @@
 package org.sputnik.api;
 
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
@@ -12,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -21,8 +21,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
-import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -55,8 +53,16 @@ public class Controlador implements Initializable {
     @FXML
     private TextArea outPut;
 
+    @FXML
+    private HBox titleBar;
 
+    @FXML
+    private Button btnClose;
 
+    @FXML
+    private Button btnMinimize;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     /*treeview*/
     @Override
