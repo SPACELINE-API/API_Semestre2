@@ -1,6 +1,8 @@
 package org.sputnik.api;
 
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -150,14 +152,14 @@ public class Controlador implements Initializable {
             JComponent editorComScroll = EditorRSyntaxFactory.criarEditor("", "python");
             SwingUtilities.invokeLater(() -> swingNode.setContent(editorComScroll));
             StackPane conteudoAba = new StackPane(swingNode);
-    
+
             Tab novaAba = new Tab("Novo Arquivo");
             novaAba.setContent(conteudoAba);
             tabPane.getTabs().add(novaAba);
             tabPane.getSelectionModel().select(novaAba);
             arquivosAbertos.put(novaAba, null);
         }
-    
+
         @FXML
         private void abrirArquivo(ActionEvent event) {
             File file = fileChooser.showOpenDialog(new Stage());
@@ -165,28 +167,28 @@ public class Controlador implements Initializable {
                 try {
                     String conteudo = Files.readString(file.toPath(), StandardCharsets.UTF_8);
                     String linguagem = detectarLinguagem(file);
-    
+
                     SwingNode swingNode = new SwingNode();
                     JComponent editorComScroll = EditorRSyntaxFactory.criarEditor(conteudo, linguagem);
                     SwingUtilities.invokeLater(() -> swingNode.setContent(editorComScroll));
-    
+
                     StackPane conteudoAba = new StackPane(swingNode);
-    
+
                     Tab novaAba = new Tab(file.getName());
                     novaAba.setContent(conteudoAba);
                     tabPane.getTabs().add(novaAba);
                     tabPane.getSelectionModel().select(novaAba);
-    
+
                     arquivosAbertos.put(novaAba, file);
-    
+
                     adicionarArquivoNaTreeView(file);
-    
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
-    
+
         private String detectarLinguagem(File file) {
             String nome = file.getName().toLowerCase();
             if (nome.endsWith(".py")) return "python";
@@ -198,21 +200,21 @@ public class Controlador implements Initializable {
             if (nome.endsWith(".txt")) return "text";
             return "text";
         }
-    
+
         @FXML
         void salvarArquivo() {
             Tab abaSelecionada = tabPane.getSelectionModel().getSelectedItem();
             if (abaSelecionada != null) {
                 Node content = ((Pane) abaSelecionada.getContent()).getChildrenUnmodifiable().get(0);
                 String texto = "";
-    
+
                 if (content instanceof SwingNode swingNode) {
                     RSyntaxTextArea rSyntaxTextArea = (RSyntaxTextArea) ((RTextScrollPane) swingNode.getContent()).getTextArea();
                     texto = rSyntaxTextArea.getText();
                 } else if (content instanceof TextArea textArea) {
                     texto = textArea.getText();
                 }
-    
+
                 File arquivo = arquivosAbertos.get(abaSelecionada);
                 if (arquivo == null) {
                     arquivo = fileChooser.showSaveDialog(new Stage());
@@ -224,7 +226,7 @@ public class Controlador implements Initializable {
                         return;
                     }
                 }
-    
+
                 try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo))) {
                     bw.write(texto);
                 } catch (IOException e) {
@@ -386,6 +388,7 @@ public class Controlador implements Initializable {
             new Thread(() -> {
                 try {
                     String resposta = IA.getRespostaIA(entrada);
+                    DatabaseManager.salvarExplicacao(entrada, resposta);
                     javafx.application.Platform.runLater(() -> output.setText(resposta));
                 } catch (Exception ex) {
                     javafx.application.Platform.runLater(() -> output.setText("Erro ao tentar obter explicação: " + ex.getMessage()));
@@ -438,11 +441,6 @@ public class Controlador implements Initializable {
         input.setPrefWidth(350);
         input.setPrefHeight(400);
 
-
-        Button btnTraduzir = new Button("Traduzir o código");
-        btnTraduzir.getStyleClass().add("botao");
-
-
         TextArea output = new TextArea();
         output.setEditable(false);
         output.setWrapText(true);
@@ -450,6 +448,8 @@ public class Controlador implements Initializable {
         output.setPrefWidth(350);
         output.setPrefHeight(400);
 
+        Button btnTraduzir = new Button("Traduzir o código");
+        btnTraduzir.getStyleClass().add("botao");
 
         btnTraduzir.setOnAction(e -> {
             String entrada = input.getText();
@@ -607,6 +607,39 @@ public class Controlador implements Initializable {
         ScrollPane scrollPane = new ScrollPane(layout);
         scrollPane.setFitToWidth(true);
         Scene scene = new Scene(scrollPane, 650, 550);
+        scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
+        popup.setScene(scene);
+
+        if (tabPane != null && tabPane.getScene() != null) {
+            popup.initOwner(tabPane.getScene().getWindow());
+        }
+
+        popup.show();
+    }
+    @FXML
+    void mostrarHistorico() {
+        Stage popup = new Stage();
+        popup.setTitle("Histórico de Explicações");
+
+        TableView<Historico> tableView = new TableView<>();
+        TableColumn<Historico, String> codigoColumn = new TableColumn<>("Código");
+        codigoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+
+        TableColumn<Historico, String> explicacaoColumn = new TableColumn<>("Explicação");
+        explicacaoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExplicacao()));
+
+        tableView.getColumns().add(codigoColumn);
+        tableView.getColumns().add(explicacaoColumn);
+
+        ObservableList<Historico> historicoList = DatabaseManager.carregarHistorico();
+        tableView.setItems(historicoList);
+
+        VBox layout = new VBox(10);
+        layout.setStyle("-fx-padding: 30;");
+        layout.getChildren().add(tableView);
+        layout.getStyleClass().add("popup");
+
+        Scene scene = new Scene(layout, 500, 300);
         scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
         popup.setScene(scene);
 
