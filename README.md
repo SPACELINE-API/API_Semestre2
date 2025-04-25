@@ -20,7 +20,7 @@
   |------|--------|------|
   |Kick Off Geral | 24/02/2025 - 28/02/2025 | Concluído |
   |01| 10/03/2025 - 30/03/2025 | Concluído |
-  |02| 07/04/2025 - 27/04/2025 | a fazer |
+  |02| 07/04/2025 - 27/04/2025 | em andamento |
   |03| 05/05/2025 - 25/05/2025 | a fazer |
   |Feira de Soluções|29/05/2025 |a fazer |
 
@@ -37,9 +37,12 @@ Clique na imagem abaixo para uma demonstração.
 [(![Logo Spaceline1](https://github.com/user-attachments/assets/0172c881-902b-4b82-b01a-fa3a1f033c75)](https://youtu.be/rZFVHzZK1eo)
 
 
+# Backlog das Sprints
+![Image](https://github.com/user-attachments/assets/8cf0e972-f0cc-4bb8-ab35-a745180cc1da)
+
 ## :desktop_computer: Tecnologias Utilizadas
 <div align="left">
-  <img src="https://skills-icons.vercel.app/api/icons?i=canva,css,figma,git,gh,intellij,java,jira,excel,ollama" height="55" />
+  <img src="https://go-skill-icons.vercel.app/api/icons?i=canva,css,figma,git,github,idea,java,jira,excel,ollama,maven,jax,mysql" />
 </div>
 
 ###
@@ -53,7 +56,9 @@ Clique na imagem abaixo para uma demonstração.
 | 3 | Valéria, outra desenvolvedora, quer que a IDE tenha o auxilio de uma IA que ajude a entender códigos desconhecidos, explicando suas funcionalidades. | Altíssimo | 1 |
 | 4 | Niles, um engenheiro de software, quer que a IDE gere código automaticamente para acelerar seu desenvolvimento. | Alta | 2 |
 | 5 | Álvaro, outro desenvolvedor, quer rodar seu código diretamente na IDE para testar funcionalidades rapidamente.  | Altíssima | 2 |
-| 6 | Juliano, um desenvolvedor, quer que a IDE sugira formas de completar seu código para aumentar sua produtividade e reduzir erros.| Alta | 3 |
+| 6 | Vinícius, um programador, quer que a IDE salve um histórico da comunicação entre ele e a IA.| Alta | 2 |
+| 7 | Juliano, um desenvolvedor, quer que a IDE sugira formas de completar seu código para aumentar sua produtividade e reduzir erros.| Alta | 3 |
+| 8 | Claúdio, em engenheiro de software, quer poder traduzir o seu código, usando a IDE| Alta | 3 |
 
 
 
