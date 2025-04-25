@@ -30,10 +30,8 @@ import java.nio.file.Files;
 import java.util.*;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
-import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
-import org.fife.ui.rsyntaxtextarea.SyntaxConstants;
-import org.fife.ui.rsyntaxtextarea.SyntaxScheme;
-import org.fife.ui.rsyntaxtextarea.TokenTypes;
+import org.fife.ui.autocomplete.*;
+import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
 import javax.swing.*;
@@ -318,23 +316,18 @@ public class Controlador implements Initializable {
             textArea.setCaretPosition(0);
             textArea.setAntiAliasingEnabled(true);
 
-            textArea.setBackground(Color.decode("#032230"));
-            textArea.setForeground(Color.decode("#eeea75"));
-            textArea.setCurrentLineHighlightColor(Color.decode("#2E3A47"));
-            textArea.setLineWrap(true);
 
-            SyntaxScheme scheme = textArea.getSyntaxScheme();
-            scheme = (SyntaxScheme) scheme.clone();
+            try {
+                Theme theme = Theme.load(EditorRSyntaxFactory.class.getResourceAsStream(
+                        "/Themes/monokai.xml"));
+                theme.apply(textArea);
+            } catch (IOException ioe) { // Never happens
+                ioe.printStackTrace();
+            }
 
-            scheme.getStyle(TokenTypes.RESERVED_WORD).foreground = Color.decode("#b55685");  /*Palavras-chave*/
-            scheme.getStyle(TokenTypes.LITERAL_STRING_DOUBLE_QUOTE).foreground = Color.decode("#0ba460");  /*Strings*/
-            scheme.getStyle(TokenTypes.LITERAL_NUMBER_DECIMAL_INT).foreground = Color.decode("#ffb354");  /*Números*/
-            scheme.getStyle(TokenTypes.COMMENT_EOL).foreground = Color.decode("#5b858b");  /*Comentários de linha*/
-            scheme.getStyle(TokenTypes.COMMENT_MULTILINE).foreground = Color.decode("#5b858b");  /* Comentários de bloco*/
-            scheme.getStyle(TokenTypes.SEPARATOR).foreground = Color.decode("#4e53a9");
-
-            textArea.setSyntaxScheme(scheme);
-
+//            CompletionProvider provider = createCompletionProvider();
+//            AutoCompletion ac = new AutoCompletion(provider);
+//            ac.install(textArea);
 
             return new RTextScrollPane(textArea);
         }
@@ -352,7 +345,28 @@ public class Controlador implements Initializable {
             };
 
         }
-    }
+
+//        private static CompletionProvider createCompletionProvider() {
+//            DefaultCompletionProvider provider = new DefaultCompletionProvider();
+//
+//            provider.addCompletion(new BasicCompletion(provider, "abstract"));
+//            provider.addCompletion(new BasicCompletion(provider, "assert"));
+//            provider.addCompletion(new BasicCompletion(provider, "break"));
+//            provider.addCompletion(new BasicCompletion(provider, "case"));
+//            provider.addCompletion(new BasicCompletion(provider, "transient"));
+//            provider.addCompletion(new BasicCompletion(provider, "try"));
+//            provider.addCompletion(new BasicCompletion(provider, "void"));
+//            provider.addCompletion(new BasicCompletion(provider, "volatile"));
+//            provider.addCompletion(new BasicCompletion(provider, "while"));
+//
+//            provider.addCompletion(new ShorthandCompletion(provider, "sysout",
+//                    "System.out.println(", "System.out.println("));
+//            provider.addCompletion(new ShorthandCompletion(provider, "syserr",
+//                    "System.err.println(", "System.err.println("));
+//
+//            return provider;
+//        }
+   }
 
 
     /*IA*/

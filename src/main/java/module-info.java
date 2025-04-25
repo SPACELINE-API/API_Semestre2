@@ -14,7 +14,9 @@ module org.sputnik.api {
     requires ollama4j;
     requires javafx.swing;
     requires java.sql;
-    requires java.desktop;
+    requires org.fife.RSyntaxTextArea;
+    requires autocomplete;
+    requires com.formdev.flatlaf;
 
     opens org.sputnik.api to javafx.fxml;
     exports org.sputnik.api;

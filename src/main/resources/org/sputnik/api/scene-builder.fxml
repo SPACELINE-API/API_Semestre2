@@ -27,7 +27,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Ajuda">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Sobre a IDE" onAction="#ajuda"/>
+                        <MenuItem mnemonicParsing="false" onAction="#ajuda" text="Sobre a IDE" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Explicação">
@@ -48,7 +48,7 @@
                 </Menu>
                 <Menu fx:id="execBtn" mnemonicParsing="false">
                <graphic>
-                  <Button fx:id="compbtn" alignment="TOP_CENTER" maxWidth="112.0" minHeight="0.0" mnemonicParsing="false" onAction="#compilar" styleClass="compbtn" text="▶" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+                  <Button fx:id="compbtn" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#compilar" styleClass="compbtn" text="Run" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
                      <font>
                         <Font name="Inter 18pt Regular" size="12.0" />
                      </font>
