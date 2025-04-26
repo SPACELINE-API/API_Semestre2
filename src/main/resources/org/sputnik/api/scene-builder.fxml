@@ -70,20 +70,20 @@
 
     <center>
         <StackPane style="-fx-background-color: #04293A;" BorderPane.alignment="CENTER">
-        <VBox fx:id="telaInicialBox" alignment="TOP_CENTER" spacing="10" stylesheets="@../../../Css/principal.css">
-            <children>
-                <Label styleClass="title" text="Sputnik" />
-                <Button mnemonicParsing="false" onAction="#novoArquivo" styleClass="meio" text="Novo arquivo" />
-                <Button fx:id="openFile" focusTraversable="false" mnemonicParsing="false" onAction="#abrirArquivo" onMouseClicked="#abrirArquivo" styleClass="meio" text="Abra arquivo" />
-                <Label accessibleRole="BUTTON" styleClass="meio" text="Abra pasta" />
-            </children>
-        </VBox>
+            <VBox fx:id="telaInicialBox" alignment="TOP_CENTER" spacing="10" stylesheets="@../../../Css/principal.css">
+                <children>
+                    <Label styleClass="title" text="Sputnik" />
+                    <Button mnemonicParsing="false" onAction="#novoArquivo" styleClass="meio" text="Novo arquivo" />
+                    <Button fx:id="openFile" focusTraversable="false" mnemonicParsing="false" onAction="#abrirArquivo" onMouseClicked="#abrirArquivo" styleClass="meio" text="Abra arquivo" />
+                    <Label accessibleRole="BUTTON" styleClass="meio" text="Abra pasta" />
+                </children>
+            </VBox>
 
-        <TabPane fx:id="tabPane" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../Css/principal.css" tabClosingPolicy="ALL_TABS" />
+            <TabPane fx:id="tabPane" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../Css/principal.css" tabClosingPolicy="ALL_TABS" />
         </StackPane>
     </center>
 
     <bottom>
-    <TextArea fx:id="outPut" prefHeight="174.0" prefWidth="739.0" styleClass="outPut" stylesheets="@../../../Css/principal.css" BorderPane.alignment="CENTER" />
-</bottom>
-        </BorderPane>
+        <TextArea fx:id="outPut" prefHeight="174.0" prefWidth="739.0" styleClass="outPut" stylesheets="@../../../Css/principal.css" BorderPane.alignment="CENTER" />
+    </bottom>
+</BorderPane>
