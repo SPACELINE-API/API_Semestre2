@@ -40,12 +40,66 @@ public class IA {
         return response.getResponse();
     }
 
-    public static String getTraducaoIA(String resposta, String linguagem) throws Exception {
-        if (resposta == null || resposta.isEmpty()) {
+    public static String conversão(String binario) {
+        StringBuilder texto = new StringBuilder();
+        String[] bytes = binario.trim().split(" ");
+        for (String b : bytes) {
+            try {
+                int charCode = Integer.parseInt(b, 2);
+                texto.append((char) charCode);
+            } catch (Exception e) {
+                texto.append('?');
+            }
+        }
+        return texto.toString();
+    }
+
+    public static String PromptTradução(String codigoPython) {
+        PromptBuilder builder = new PromptBuilder();
+
+        builder
+                .addLine("Você é uma IA especialista em Python e em decodificação binária")
+                .addSeparator()
+                .addLine("Sempre que receber um código, siga as instruções abaixo:")
+                .addSeparator()
+                .addLine("1. Traduza e comente o código, explicando claramente o que ele faz.")
+                .addSeparator()
+                .addLine("2. Se houver erros, corrija-os e comente o código corrigido.")
+                .addSeparator()
+                .addLine("3. Saída esperada no console")
+                .addSeparator()
+                .addLine("Código:")
+                .addLine("```")
+                .addLine(codigoPython)
+                .addLine("```");
+
+        return builder.build();
+    }
+
+
+    public static String getTraducaoIA(String entradaUsuario, String linguagem) throws Exception {
+        if (entradaUsuario == null || entradaUsuario.isEmpty()) {
             return "Entrada de texto vazia. Por favor, forneça um código para tradução ou selecione um arquivo.";
         }
-        return "Tradução de " + linguagem;
+
+        String codigoPython;
+        if (entradaUsuario.matches("[01\\s]+")) {
+            codigoPython = conversão(entradaUsuario);
+        } else {
+            codigoPython = entradaUsuario;
+        }
+
+        String prompt = PromptTradução(codigoPython);
+
+
+        try {
+            return Tradução.Prompt("qwen2.5-coder:7b", prompt);
+        } catch (Exception e) {
+            return "Erro ao tentar obter a tradução: " + e.getMessage();
+        }
     }
+
+
 
     public static String getSugestaoIA(String resposta) throws Exception {
         if (resposta == null || resposta.isEmpty()) {

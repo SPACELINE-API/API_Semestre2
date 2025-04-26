@@ -17,6 +17,7 @@ module org.sputnik.api {
     requires org.fife.RSyntaxTextArea;
     requires autocomplete;
     requires com.formdev.flatlaf;
+    requires java.net.http;
 
     opens org.sputnik.api to javafx.fxml;
     exports org.sputnik.api;
