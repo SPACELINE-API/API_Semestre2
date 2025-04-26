@@ -19,6 +19,7 @@ public class Main extends Application {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("scene-builder.fxml")));
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
+            stage.initStyle(StageStyle.TRANSPARENT);
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {

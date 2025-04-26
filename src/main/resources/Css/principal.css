@@ -85,9 +85,6 @@
 
         .menu-bar {
             -fx-background-color: #04293A;
-            -fx-padding: 5px 0px 4px 5px;
-            -fx-border-width: 1px;
-            -fx-border-color: #2E3A47;
             -fx-border-insets: 1px 0px 0px 0px;
         }
 
@@ -100,6 +97,41 @@
             -fx-background-color: rgba(4, 41, 58, 0);
             -fx-alignment: center;
             -fx-text-fill: #E0E0E0;
+        }
+
+        .dimbtn {
+            -fx-background-color: rgba(4, 41, 58, 0);
+            -fx-alignment: center;
+            -fx-text-fill: #E0E0E0;
+        }
+
+        .dimbtn:hover {
+            -fx-background-color: #043044;
+        }
+
+        .tabbtn {
+            -fx-background-color: rgba(4, 41, 58, 0);
+            -fx-alignment: center;
+            -fx-text-fill: #E0E0E0;
+        }
+
+        .tabbtn:hover {
+            -fx-background-color: #043044;
+        }
+
+        .clsbtn {
+            -fx-background-color: rgba(4, 41, 58, 0);
+            -fx-alignment: center;
+            -fx-text-fill: #E0E0E0;
+        }
+
+        .clsbtn:hover {
+            -fx-background-color: #a40505;
+        }
+
+        .compbtn:hover {
+            -fx-background-color: rgba(107, 87, 44, 0.35) ;
+            -fx-background-radius: 5px;
         }
 
 
@@ -195,3 +227,36 @@
          .subtitulo {
             -fx-padding: 10 0 0 0;
          }
+
+/*scroll*/
+        .scroll-pane {
+            -fx-background-color: #021f2d; /* fundo do scrollpane */
+            -fx-border-color: transparent;
+        }
+
+        .scroll-pane .viewport {
+            -fx-background-color: transparent;
+        }
+
+        .scroll-bar:vertical, .scroll-bar:horizontal {
+            -fx-background-color: #021f2d; /* fundo da área do scrollbar */
+        }
+
+        .scroll-bar .thumb {
+            -fx-background-color: #5c5c5c; /* "botão" que você arrasta */
+            -fx-background-insets: 2;
+            -fx-background-radius: 5;
+        }
+
+        .scroll-bar .thumb:hover {
+            -fx-background-color: #787878; /* thumb quando passa o mouse */
+        }
+
+        .scroll-bar .track {
+            -fx-background-color: #021f2d; /* trilha de fundo */
+        }
+
+        .scroll-bar .increment-button, .scroll-bar .decrement-button {
+            -fx-background-color: transparent;
+            -fx-padding: 0;
+        }

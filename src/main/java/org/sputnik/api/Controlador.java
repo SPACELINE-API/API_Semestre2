@@ -1,5 +1,6 @@
 package org.sputnik.api;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
@@ -11,7 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.HBox;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
@@ -31,11 +33,13 @@ import javafx.stage.Screen;
 import org.fife.ui.autocomplete.*;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
-
 import javax.swing.*;
 
 
 public class Controlador implements Initializable {
+
+    private double xOffset=0;
+    private double yOffset=0;
 
     @FXML
     private TreeView<String> treeView;
@@ -54,15 +58,54 @@ public class Controlador implements Initializable {
     private TextArea outPut;
 
     @FXML
-    private HBox titleBar;
-
-    @FXML
     private Button btnClose;
 
     @FXML
     private Button btnMinimize;
-    private double xOffset = 0;
-    private double yOffset = 0;
+
+    @FXML
+    private Button btnTab;
+
+    @FXML
+    private AnchorPane topPane;
+
+    /*barra de título*/
+    @FXML
+    private void  fechar(ActionEvent event) {
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+
+        stage.close();
+    }
+
+    @FXML
+    private void diminuir(ActionEvent event) {
+        Stage stage = (Stage) btnMinimize.getScene().getWindow();
+
+        stage.setIconified(true);
+    }
+
+    @FXML
+    private void fullscreen(ActionEvent event) {
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        stage.setMaximized(!stage.isMaximized());
+    }
+
+    @FXML
+    private void click(MouseEvent event) {
+        Stage stage = (Stage) topPane.getScene().getWindow();
+
+        xOffset=stage .getX() - event.getScreenX();
+        yOffset=stage.getY() - event.getScreenY();
+    }
+
+    @FXML
+    private void movimento(MouseEvent event) {
+        Stage stage = (Stage) btnTab.getScene().getWindow();
+
+        stage.setX(event.getScreenX() + xOffset );
+        stage.setY(event.getScreenY() + yOffset);
+    }
 
     /*treeview*/
     @Override
@@ -150,94 +193,96 @@ public class Controlador implements Initializable {
             }
         }
     }
-         @FXML
-        void novoArquivo() {
-            SwingNode swingNode = new SwingNode();
-            JComponent editorComScroll = EditorRSyntaxFactory.criarEditor("", "python");
-            SwingUtilities.invokeLater(() -> swingNode.setContent(editorComScroll));
-            StackPane conteudoAba = new StackPane(swingNode);
 
-            Tab novaAba = new Tab("Novo Arquivo");
-            novaAba.setContent(conteudoAba);
-            tabPane.getTabs().add(novaAba);
-            tabPane.getSelectionModel().select(novaAba);
-            arquivosAbertos.put(novaAba, null);
-        }
+    @FXML
+    void novoArquivo() {
+        SwingNode swingNode = new SwingNode();
+        JComponent editorComScroll = EditorRSyntaxFactory.criarEditor("", "python");
+        SwingUtilities.invokeLater(() -> swingNode.setContent(editorComScroll));
+        StackPane conteudoAba = new StackPane(swingNode);
 
-        @FXML
-        private void abrirArquivo(ActionEvent event) {
-            File file = fileChooser.showOpenDialog(new Stage());
-            if (file != null) {
-                try {
-                    String conteudo = Files.readString(file.toPath(), StandardCharsets.UTF_8);
-                    String linguagem = detectarLinguagem(file);
+        Tab novaAba = new Tab("Novo Arquivo");
+        novaAba.setContent(conteudoAba);
+        tabPane.getTabs().add(novaAba);
+        tabPane.getSelectionModel().select(novaAba);
+        arquivosAbertos.put(novaAba, null);
+    }
 
-                    SwingNode swingNode = new SwingNode();
-                    JComponent editorComScroll = EditorRSyntaxFactory.criarEditor(conteudo, linguagem);
-                    SwingUtilities.invokeLater(() -> swingNode.setContent(editorComScroll));
+    @FXML
+    private void abrirArquivo(ActionEvent event) {
+        File file = fileChooser.showOpenDialog(new Stage());
+        if (file != null) {
+            try {
+                String conteudo = Files.readString(file.toPath(), StandardCharsets.UTF_8);
+                String linguagem = detectarLinguagem(file);
 
-                    StackPane conteudoAba = new StackPane(swingNode);
+                SwingNode swingNode = new SwingNode();
+                JComponent editorComScroll = EditorRSyntaxFactory.criarEditor(conteudo, linguagem);
+                SwingUtilities.invokeLater(() -> swingNode.setContent(editorComScroll));
 
-                    Tab novaAba = new Tab(file.getName());
-                    novaAba.setContent(conteudoAba);
-                    tabPane.getTabs().add(novaAba);
-                    tabPane.getSelectionModel().select(novaAba);
+                StackPane conteudoAba = new StackPane(swingNode);
 
-                    arquivosAbertos.put(novaAba, file);
+                Tab novaAba = new Tab(file.getName());
+                novaAba.setContent(conteudoAba);
+                tabPane.getTabs().add(novaAba);
+                tabPane.getSelectionModel().select(novaAba);
 
-                    adicionarArquivoNaTreeView(file);
+                arquivosAbertos.put(novaAba, file);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                adicionarArquivoNaTreeView(file);
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
+    }
 
-        private String detectarLinguagem(File file) {
-            String nome = file.getName().toLowerCase();
-            if (nome.endsWith(".py")) return "python";
-            if (nome.endsWith(".java")) return "java";
-            if (nome.endsWith(".js")) return "javascript";
-            if (nome.endsWith(".html")) return "html";
-            if (nome.endsWith(".c")) return "c";
-            if (nome.endsWith(".cpp")) return "cpp";
-            if (nome.endsWith(".txt")) return "text";
-            return "text";
-        }
+    private String detectarLinguagem(File file) {
+        String nome = file.getName().toLowerCase();
+        if (nome.endsWith(".py")) return "python";
+        if (nome.endsWith(".java")) return "java";
+        if (nome.endsWith(".js")) return "javascript";
+        if (nome.endsWith(".html")) return "html";
+        if (nome.endsWith(".c")) return "c";
+        if (nome.endsWith(".cpp")) return "cpp";
+        if (nome.endsWith(".txt")) return "text";
+        return "text";
+    }
 
-        @FXML
-        void salvarArquivo() {
-            Tab abaSelecionada = tabPane.getSelectionModel().getSelectedItem();
-            if (abaSelecionada != null) {
-                Node content = ((Pane) abaSelecionada.getContent()).getChildrenUnmodifiable().get(0);
-                String texto = "";
+    @FXML
+    void salvarArquivo() {
+        Tab abaSelecionada = tabPane.getSelectionModel().getSelectedItem();
+        if (abaSelecionada != null) {
+            Node content = ((Pane) abaSelecionada.getContent()).getChildrenUnmodifiable().get(0);
+            String texto = "";
 
-                if (content instanceof SwingNode swingNode) {
-                    RSyntaxTextArea rSyntaxTextArea = (RSyntaxTextArea) ((RTextScrollPane) swingNode.getContent()).getTextArea();
-                    texto = rSyntaxTextArea.getText();
-                } else if (content instanceof TextArea textArea) {
-                    texto = textArea.getText();
-                }
+            if (content instanceof SwingNode swingNode) {
+                RSyntaxTextArea rSyntaxTextArea = (RSyntaxTextArea) ((RTextScrollPane) swingNode.getContent()).getTextArea();
+                texto = rSyntaxTextArea.getText();
+            } else if (content instanceof TextArea textArea) {
+                texto = textArea.getText();
+            }
 
-                File arquivo = arquivosAbertos.get(abaSelecionada);
-                if (arquivo == null) {
-                    arquivo = fileChooser.showSaveDialog(new Stage());
-                    if (arquivo != null) {
-                        arquivosAbertos.put(abaSelecionada, arquivo);
-                        abaSelecionada.setText(arquivo.getName());
-                        adicionarArquivoNaTreeView(arquivo);
-                    } else {
-                        return;
-                    }
-                }
-
-                try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo))) {
-                    bw.write(texto);
-                } catch (IOException e) {
-                    e.printStackTrace();
+            File arquivo = arquivosAbertos.get(abaSelecionada);
+            if (arquivo == null) {
+                arquivo = fileChooser.showSaveDialog(new Stage());
+                if (arquivo != null) {
+                    arquivosAbertos.put(abaSelecionada, arquivo);
+                    abaSelecionada.setText(arquivo.getName());
+                    adicionarArquivoNaTreeView(arquivo);
+                } else {
+                    return;
                 }
             }
+
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(arquivo))) {
+                bw.write(texto);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
 
     /*compilador*/
 
