@@ -1,6 +1,5 @@
 package org.sputnik.api;
 
-import com.formdev.flatlaf.FlatDarkLaf;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
@@ -12,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -34,6 +33,7 @@ import org.fife.ui.autocomplete.*;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import javax.swing.*;
+import javafx.application.Platform;
 
 
 public class Controlador implements Initializable {
@@ -126,6 +126,50 @@ public class Controlador implements Initializable {
                 tabPane.setMouseTransparent(false);
             }
         });
+
+        Platform.runLater(() -> {
+            Scene scene = topPane.getScene();
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.isControlDown() && event.getCode() == KeyCode.O) {
+                    File arquivo = fileChooser.showOpenDialog(scene.getWindow());
+                    adicionarArquivoNaTreeView(arquivo);
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.N) {
+                    novoArquivo();
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.S) {
+                    salvarArquivo();
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.H) {
+                    ajuda();
+                    event.consume();
+                }
+                if (event.getCode() == KeyCode.F5) {
+                    compilar();
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.T) {
+                    traduzir("binario");
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.E) {
+                    explicar();
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.D) {
+                    mostrarHistorico();
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.R) {
+                    sugerir();
+                    event.consume();
+                }
+            });
+        });
+
     }
 
     private void configurarTreeView() {
