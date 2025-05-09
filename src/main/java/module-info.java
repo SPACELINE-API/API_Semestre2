@@ -18,6 +18,7 @@ module org.sputnik.api {
     requires autocomplete;
     requires com.formdev.flatlaf;
     requires java.net.http;
+    requires org.json;
 
     opens org.sputnik.api to javafx.fxml;
     exports org.sputnik.api;

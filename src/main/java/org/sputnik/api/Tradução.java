@@ -3,6 +3,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import org.json.JSONObject;
 
 public class Tradução {
 
@@ -29,6 +30,8 @@ public class Tradução {
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        return response.body();
+        JSONObject obj = new JSONObject(response.body());
+        return obj.getString("response");
+
     }
 }
