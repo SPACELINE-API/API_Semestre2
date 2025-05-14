@@ -32,10 +32,11 @@
       </AnchorPane>
    </top>
    <center>
-      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableView" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="codigoColumn" minWidth="170.0" prefWidth="75.0" text="Código" />
-          <TableColumn fx:id="explicacaoColumn" minWidth="170.0" prefWidth="75.0" text="Explicação" />
+          <TableColumn fx:id="codigoColumn" editable="false" minWidth="-1.0" prefWidth="75.0" sortable="false" text="Código" />
+          <TableColumn fx:id="explicacaoColumn" editable="false" minWidth="-1.0" prefWidth="75.0" sortable="false" text="Explicação" />
+           <TableColumn fx:id="dataCriacaoColumn" editable="false" minWidth="-1.0" prefWidth="100.7999267578125" sortable="false" text="Data de Criação" />
         </columns>
       </TableView>
    </center>

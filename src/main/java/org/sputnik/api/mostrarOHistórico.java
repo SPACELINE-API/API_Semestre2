@@ -20,6 +20,17 @@ public class mostrarOHistórico implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
 
+    @FXML
+    private TableView<Historico> tableView;
+
+    @FXML
+    private TableColumn<Historico, String> codigoColumn;
+
+    @FXML
+    private TableColumn<Historico, String> explicacaoColumn;
+
+    @FXML
+    private TableColumn<Historico, String> dataCriacaoColumn;
 
     @FXML
     private Button btnClose;
@@ -72,24 +83,25 @@ public class mostrarOHistórico implements Initializable {
     }
 
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        TableView<Historico> tableView = new TableView<>();
-        TableColumn<Historico, String> codigoColumn = new TableColumn<>("Código");
-        codigoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+        codigoColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getCodigo()));
 
-        TableColumn<Historico, String> explicacaoColumn = new TableColumn<>("Explicação");
-        explicacaoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExplicacao()));
+        explicacaoColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getExplicacao()));
 
-        tableView.getColumns().add(codigoColumn);
-        tableView.getColumns().add(explicacaoColumn);
+        dataCriacaoColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getDataCriacao().toString()));
+
 
         ObservableList<Historico> historicoList = DatabaseManager.carregarHistorico();
-        tableView.setItems(historicoList);}
+        tableView.setItems(historicoList);
+
 
     }
+}
 
 
 

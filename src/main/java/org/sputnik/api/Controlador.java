@@ -1,8 +1,6 @@
 package org.sputnik.api;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -132,6 +130,8 @@ public class Controlador implements Initializable {
             }
         });
 
+
+        /*Atalhos*/
         Platform.runLater(() -> {
             Scene scene = topPane.getScene();
             scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -166,6 +166,14 @@ public class Controlador implements Initializable {
                 }
                 if (event.isControlDown() && event.getCode() == KeyCode.R) {
                     sugerir();
+                    event.consume();
+                }
+                if (event.isControlDown()&& event.getCode() == KeyCode.D) {
+                    try {
+                        mostrarHistórico();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                     event.consume();
                 }
             });
@@ -768,7 +776,7 @@ public class Controlador implements Initializable {
     }
 
     @FXML
-    public void mostrarHistórico(ActionEvent event) throws IOException {
+    public void mostrarHistórico() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("pag2.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
