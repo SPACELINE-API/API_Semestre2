@@ -34,6 +34,8 @@ import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import javax.swing.*;
 import javafx.application.Platform;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 
 public class Controlador implements Initializable {
@@ -497,7 +499,8 @@ public class Controlador implements Initializable {
             new Thread(() -> {
                 try {
                     String resposta = IA.getRespostaIA(entrada);
-                    DatabaseManager.salvarExplicacao(entrada, resposta);
+                    Timestamp dataCriacao = new Timestamp(System.currentTimeMillis());
+                    DatabaseManager.salvarExplicacao(entrada, resposta, dataCriacao);
                     javafx.application.Platform.runLater(() -> output.setText(resposta));
                 } catch (Exception ex) {
                     javafx.application.Platform.runLater(() -> output.setText("Erro ao tentar obter explicação: " + ex.getMessage()));
