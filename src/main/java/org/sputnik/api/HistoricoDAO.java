@@ -10,13 +10,14 @@ public class HistoricoDAO {
     private static final String USER = "root";
     private static final String PASSWORD = "fatec";
 
-    public void salvar(String codigo, String explicacao) {
-        String sql = "INSERT INTO historico_explicacoes (codigo, explicacao) VALUES (?, ?)";
+    public void salvar(String codigo, String explicacao, Timestamp dataCriacao) {
+        String sql = "INSERT INTO historico_explicacoes (codigo, explicacao, dataCriacao) VALUES (?, ?, ?)";
 
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, codigo);
             stmt.setString(2, explicacao);
+            stmt.setTimestamp(3, dataCriacao);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

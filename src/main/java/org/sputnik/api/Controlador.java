@@ -730,11 +730,18 @@ public class Controlador implements Initializable {
         TableColumn<Historico, String> explicacaoColumn = new TableColumn<>("Explicação");
         explicacaoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExplicacao()));
 
-        tableView.getColumns().add(codigoColumn);
-        tableView.getColumns().add(explicacaoColumn);
+        TableColumn<Historico, String> dataColumn = new TableColumn<>("Data");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        dataColumn.setCellValueFactory(cellData -> {
+            Timestamp timestamp = cellData.getValue().getDataCriacao();
+            String formattedDate = (timestamp != null) ? dateFormat.format(timestamp) : "";
+            return new SimpleStringProperty(formattedDate);
+        });
 
-        ObservableList<Historico> historicoList = DatabaseManager.carregarHistorico();
-        tableView.setItems(historicoList);
+        tableView.getColumns().addAll(codigoColumn, explicacaoColumn, dataColumn);
+
+        tableView.setItems (DatabaseManager.carregarHistorico());
+
 
         VBox layout = new VBox(10);
         layout.setStyle("-fx-padding: 30;");
@@ -751,4 +758,5 @@ public class Controlador implements Initializable {
 
         popup.show();
     }
+
 }
