@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="336.0" stylesheets="@../../../Css/principal.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sputnik.api.mostrarOHistórico">
+   <top>
+      <AnchorPane fx:id="topPane" onMouseDragged="#movimento" onMousePressed="#click" prefHeight="22.0" prefWidth="336.0" style="-fx-border-width: 0px 0px 1px 0px; -fx-background-color: #023c57; -fx-border-color: #2E3A47;" stylesheets="@../../../Css/principal.css" BorderPane.alignment="CENTER">
+         <children>
+            <HBox layoutY="-4.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="336.0">
+               <children>
+                  <Button fx:id="btnClose" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#fechar" styleClass="clsbtn" stylesheets="@../../../Css/principal.css" text="x" textAlignment="JUSTIFY">
+                     <font>
+                        <Font name="Inter 18pt Regular" size="18.0" />
+                     </font></Button>
+                  <Button fx:id="btnTab" mnemonicParsing="false" onAction="#fullscreen" styleClass="tabbtn" stylesheets="@../../../Css/principal.css" text="◱">
+                     <font>
+                        <Font name="Inter 18pt Regular" size="18.0" />
+                     </font></Button>
+                  <Button fx:id="btnMinimize" mnemonicParsing="false" onAction="#diminuir" styleClass="dimbtn" stylesheets="@../../../Css/principal.css" text="–">
+                     <font>
+                        <Font name="Inter 18pt Regular" size="18.0" />
+                     </font></Button>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </top>
+   <center>
+      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="codigoColumn" minWidth="170.0" prefWidth="75.0" text="Código" />
+          <TableColumn fx:id="explicacaoColumn" minWidth="170.0" prefWidth="75.0" text="Explicação" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>
