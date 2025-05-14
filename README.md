@@ -11,7 +11,7 @@
   
   Sprint | Previsão | Status|
   |------|--------|------|
-  |02| 07/04/2025 - 27/04/2025 | em andamento |
+  |02| 07/04/2025 - 27/04/2025 | Concluído |
 
 
   # Objetivo do Projeto
