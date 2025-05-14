@@ -1,5 +1,8 @@
 package org.sputnik.api;
 
+import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +15,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -22,11 +26,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.sql.Timestamp;
 import java.util.*;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -72,7 +76,7 @@ public class Controlador implements Initializable {
 
     /*barra de título*/
     @FXML
-    private void fechar(ActionEvent event) {
+    private void  fechar(ActionEvent event) {
         Stage stage = (Stage) btnClose.getScene().getWindow();
 
         stage.close();
@@ -127,6 +131,46 @@ public class Controlador implements Initializable {
                 tabPane.setMouseTransparent(false);
             }
         });
+
+        Platform.runLater(() -> {
+            Scene scene = topPane.getScene();
+            scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+                if (event.isControlDown() && event.getCode() == KeyCode.O) {
+                    File arquivo = fileChooser.showOpenDialog(scene.getWindow());
+                    adicionarArquivoNaTreeView(arquivo);
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.N) {
+                    novoArquivo();
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.S) {
+                    salvarArquivo();
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.H) {
+                    ajuda();
+                    event.consume();
+                }
+                if (event.getCode() == KeyCode.F5) {
+                    compilar();
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.T) {
+                    traduzir("binario");
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.E) {
+                    explicar();
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.R) {
+                    sugerir();
+                    event.consume();
+                }
+            });
+        });
+
     }
 
     private void configurarTreeView() {
@@ -502,7 +546,8 @@ public class Controlador implements Initializable {
             new Thread(() -> {
                 try {
                     String resposta = IA.getRespostaIA(entrada);
-                    DatabaseManager.salvarExplicacao(entrada, resposta);
+                    Timestamp dataCriacao = new Timestamp(System.currentTimeMillis());
+                    DatabaseManager.salvarExplicacao(entrada, resposta, dataCriacao);
                     javafx.application.Platform.runLater(() -> output.setText(resposta));
                 } catch (Exception ex) {
                     javafx.application.Platform.runLater(() -> output.setText("Erro ao tentar obter explicação: " + ex.getMessage()));
@@ -658,71 +703,61 @@ public class Controlador implements Initializable {
     }
 
 
+
+    public Label criarLabel(String texto, String classe) {
+        Label label = new Label(texto);
+        label.getStyleClass().add("titulo");
+        label.setWrapText(true);
+        return label;
+    };
+
+    public Text criarText(String texto, Scene scene) {
+        Text text = new Text(texto);
+        text.getStyleClass().add("conteudo");
+        text.wrappingWidthProperty().bind(scene.widthProperty().subtract(60));
+        return text;
+    };
+
     @FXML
     void ajuda() {
         Stage popup = new Stage();
         popup.setTitle("Ajuda");
 
         Rectangle2D tela = Screen.getPrimary().getVisualBounds();
-        double largulaTela = tela.getWidth();
-        Label label = new Label("Bem-vindo à Sputnik! \uD83D\uDC0D");
-        label.getStyleClass().add("titulo");
-        Text text = new Text("Sputnik é um ambiente de desenvolvimento integrado (IDE) criado especialmente para facilitar a escrita, execução e organização de seus projetos em Python. ");
-        text.getStyleClass().add("conteudo");
-        text.setWrappingWidth(largulaTela - 50);
-        Label label2 = new Label("\uD83D\uDD27 O que você pode fazer aqui:");
-        label2.getStyleClass().add("titulo");
-        Text text2 = new Text("Criar, abrir e salvar arquivos .py\n" +
-                "\n" +
-                "Executar seu código Python diretamente na IDE\n" +
-                "\n" +
-                "Clonar repositórios do GitHub\n" +
-                "\n" +
-                "Salvar arquivos em .kps e .asm");
-        text2.getStyleClass().add("conteudo");
-        text2.setWrappingWidth(largulaTela - 50);
-        Label label3 = new Label("\uD83D\uDCA1 Assistente de IA");
-        label3.getStyleClass().add("titulo");
-        Text text3 = new Text("A Sputnik utiliza inteligência artificial para auxiliar os desenvolvedores. Algumas de suas funcionalidades são:\n" +
-                "\n" +
-                "Sugestão de trechos de código\n" +
-                "\n" +
-                "Explicação do código\n" +
-                "\n" +
-                "Tradução de código Python para a linguagem Kotlin\n" +
-                "\n" +
-                "Tradução de código Python para a linguagem Assembly");
-        text3.getStyleClass().add("conteudo");
-        text3.setWrappingWidth(largulaTela - 50);
-        Label label4 = new Label("\uD83D\uDCCC Dicas\n");
-        label4.getStyleClass().add("subtitulo");
-        Text text4 = new Text("Quanto mais contexto no código, melhores as sugestões\n" +
-                "\n" +
-                "Revise sempre as sugestões antes de confirmar\n" +
-                "\n" +
-                "Você pode editar ou ignorar qualquer sugestão");
-        text4.getStyleClass().add("conteudo");
-        text4.setWrappingWidth(largulaTela - 50);
-        Label label5 = new Label("\uD83E\uDDE0 Limitações");
-        label5.getStyleClass().add("subtitulo");
-        Text text5 = new Text("A IA não garante que o código seja 100% correto ou otimizado\n" +
-                "\n" +
-                "Não substitui revisão humana nem testes manuais\n" +
-                "\n");
-        text5.getStyleClass().add("conteudo");
-        text5.setWrappingWidth(largulaTela - 50);
+        double larguraTela = tela.getWidth();
 
         VBox layout = new VBox(10);
         layout.setStyle("-fx-padding: 30;");
 
-        layout.getChildren().addAll(label, text, label2, text2, label3, text3, label4, text4, label5, text5);
-        layout.getStyleClass().add("popup");
-
         ScrollPane scrollPane = new ScrollPane(layout);
         scrollPane.setFitToWidth(true);
-        Scene scene = new Scene(scrollPane, 650, 550);
+        Scene scene = new Scene(scrollPane, 400, 450);
         scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
         popup.setScene(scene);
+
+        layout.getChildren().addAll(
+                criarLabel("Bem-vindo à Sputnik! \uD83D\uDC0D", "titulo"),
+                criarText("Sputnik é um ambiente de desenvolvimento integrado (IDE) criado especialmente para facilitar a escrita, execução e " +
+                        "organização de seus projetos em Python. ", scene),
+
+                criarLabel("\uD83D\uDD27 O que você pode fazer aqui:", "titulo"),
+                criarText("\u25CF Criar, abrir e salvar arquivos .py\n\u25CF Executar seu código Python diretamente na IDE\n\u25CF Consultar o histórico de explicações do seu código", scene),
+
+                criarLabel("\uD83D\uDCA1 Assistente de IA", "titulo"),
+                criarText("A Sputnik utiliza inteligência artificial para auxiliar os desenvolvedores. Algumas de suas funcionalidades são:\n\u25CF Sugestão de trechos de código\n\u25CF Explicação " +
+                        "do código\n\u25CF Tradução de código Python para binário", scene),
+
+                criarLabel("\uD83D\uDCCC Dicas\n", "subtitulo"),
+                criarText("\u25CF Quanto mais contexto no código, melhores as sugestões\n\u25CF Revise sempre as sugestões antes de confirmar\n\u25CF Você pode editar ou ignorar qualquer sugestão", scene),
+
+                criarLabel("\u2757 Limitações", "subtitulo"),
+                criarText("\u25CF A IA não garante que o código seja 100% correto ou otimizado\n\u25CF Não substitui revisão humana nem testes manuais", scene),
+
+                criarLabel("Atalhos", "titulo"),
+                criarText("Novo arquivo \u2192 Ctrl + N \nAbrir arquivo \u2192 Ctrl + O\nSalvar arquivo \u2192 Ctrl + S\nAjuda \u2192 Ctrl + H\nMostrar histórico \u2192 Ctrl + D\nExecutar \u2192 F5\n" +
+                        "Traduzir o código \u2192 Ctrl + T \nExplicar o código \u2192 Ctrl + E\nSugerir formas de completar o código \u2192 Ctrl + R", scene
+                )
+        );
 
         if (tabPane != null && tabPane.getScene() != null) {
             popup.initOwner(tabPane.getScene().getWindow());

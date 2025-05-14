@@ -26,8 +26,14 @@
             <VBox fx:id="telaInicialBox" alignment="TOP_CENTER" spacing="10" stylesheets="@../../../Css/principal.css">
                 <children>
                     <Label styleClass="title" text="Sputnik" />
-                    <Button mnemonicParsing="false" onAction="#novoArquivo" styleClass="meio" text="Novo arquivo" />
-                    <Button fx:id="openFile" focusTraversable="false" mnemonicParsing="false" onAction="#abrirArquivo" onMouseClicked="#abrirArquivo" styleClass="meio" text="Abra arquivo" />
+                    <HBox styleClass="meio">
+                        <Button mnemonicParsing="false" onAction="#novoArquivo" styleClass="meio" text="Novo arquivo"/>
+                        <Label styleClass="atalho" text="Ctrl + N" />
+                    </HBox>
+                    <HBox styleClass="meio">
+                        <Button fx:id="openFile" focusTraversable="false" mnemonicParsing="false" onAction="#abrirArquivo" onMouseClicked="#abrirArquivo" styleClass="meio" text="Abra arquivo" />
+                        <Label styleClass="atalho" text="Ctrl + O" />
+                    </HBox>
                     <Label accessibleRole="BUTTON" styleClass="meio" />
                 </children>
             </VBox>

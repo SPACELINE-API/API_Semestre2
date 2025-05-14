@@ -8,7 +8,6 @@
             src: url("../fonts/Jura/Jura-Regular.ttf");
         }
 
-
         .title {
             -fx-font-family: "Jura", sans-serif;
             -fx-font-size: 85px;
@@ -23,8 +22,15 @@
             -fx-cursor: hand;
             -fx-padding: 5px 10px;
             -fx-alignment: center;
-            -fx-min-width: 200px;
+            -fx-min-width: 100px;
             -fx-background-color: #04293A;
+        }
+
+        .atalho {
+            -fx-font-size: 10px;
+            -fx-text-fill: white;
+            -fx-background-color: #021f2d;
+            -fx-padding: 4px;
         }
 
         .meio:hover {
@@ -225,6 +231,8 @@
 
          .subtitulo {
             -fx-padding: 10 0 0 0;
+            -fx-text-fill: white;
+            -fx-font-size: 13px;
          }
 
 /*scroll*/
