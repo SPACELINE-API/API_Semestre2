@@ -34,9 +34,9 @@
    <center>
       <TableView fx:id="tableView" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="codigoColumn" editable="false" minWidth="-1.0" prefWidth="75.0" sortable="false" text="Código" />
-          <TableColumn fx:id="explicacaoColumn" editable="false" minWidth="-1.0" prefWidth="75.0" sortable="false" text="Explicação" />
-           <TableColumn fx:id="dataCriacaoColumn" editable="false" minWidth="-1.0" prefWidth="100.7999267578125" sortable="false" text="Data de Criação" />
+          <TableColumn fx:id="codigoColumn" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Código" />
+          <TableColumn fx:id="explicacaoColumn" editable="false" maxWidth="-1.0" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Explicação" />
+           <TableColumn fx:id="dataCriacaoColumn" editable="false" maxWidth="-Infinity" minWidth="-1.0" prefWidth="-1.0" sortable="false" text="Data de Criação" />
         </columns>
       </TableView>
    </center>
