@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="579.0" stylesheets="@../../../Css/principal.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sputnik.api.mostrarOHistórico">
+<BorderPane fx:id="" stylesheets="@../../../Css/principal.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sputnik.api.mostrarOHistórico">
    <top>
-      <AnchorPane fx:id="topPane" onMouseDragged="#movimento" onMousePressed="#click" prefHeight="22.0" prefWidth="336.0" style="-fx-border-width: 0px 0px 1px 0px; -fx-background-color: #023c57;" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="topPane" nodeOrientation="LEFT_TO_RIGHT" onMouseDragged="#movimento" onMousePressed="#click" style="-fx-background-color: #023c57;" BorderPane.alignment="TOP_RIGHT">
          <children>
-            <HBox alignment="TOP_RIGHT" layoutX="471.0" layoutY="-2.0" nodeOrientation="RIGHT_TO_LEFT" style="-fx-background-color: #023c57;">
+            <HBox alignment="TOP_RIGHT" layoutX="607.0" layoutY="1.0" nodeOrientation="RIGHT_TO_LEFT" style="-fx-background-color: #023c57;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Button fx:id="btnClose" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#fechar" styleClass="clsbtn" stylesheets="@../../../Css/principal.css" text="x" textAlignment="JUSTIFY">
                      <font>
@@ -32,11 +32,11 @@
       </AnchorPane>
    </top>
    <center>
-      <TableView fx:id="tableView" BorderPane.alignment="CENTER">
+      <TableView fx:id="tableView">
         <columns>
-           <TableColumn fx:id="codigoColumn" minWidth="100.0" prefWidth="150.0" text="Código" />
-           <TableColumn fx:id="explicacaoColumn" minWidth="150.0" prefWidth="250.0" text="Explicação" />
-           <TableColumn fx:id="dataCriacaoColumn" minWidth="150.0" prefWidth="180.0" text="Data de Criação" />
+           <TableColumn fx:id="codigoColumn" minWidth="-1.0" prefWidth="150.0" text="Código" />
+           <TableColumn fx:id="explicacaoColumn" minWidth="-1.0" prefWidth="250.0" text="Explicação" />
+           <TableColumn fx:id="dataCriacaoColumn" minWidth="-1.0" prefWidth="180.0" text="Data de Criação" />
         </columns>
       </TableView>
    </center>
