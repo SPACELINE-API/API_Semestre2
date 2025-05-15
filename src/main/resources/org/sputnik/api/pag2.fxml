@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="336.0" stylesheets="@../../../Css/principal.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sputnik.api.mostrarOHistórico">
+<BorderPane fx:id="" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="579.0" stylesheets="@../../../Css/principal.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sputnik.api.mostrarOHistórico">
    <top>
-      <AnchorPane fx:id="topPane" onMouseDragged="#movimento" onMousePressed="#click" prefHeight="22.0" prefWidth="336.0" style="-fx-border-width: 0px 0px 1px 0px; -fx-background-color: #023c57; -fx-border-color: #2E3A47;" stylesheets="@../../../Css/principal.css" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="topPane" onMouseDragged="#movimento" onMousePressed="#click" prefHeight="22.0" prefWidth="336.0" style="-fx-border-width: 0px 0px 1px 0px; -fx-background-color: #023c57;" BorderPane.alignment="CENTER">
          <children>
-            <HBox layoutY="-4.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="36.0" prefWidth="336.0">
+            <HBox alignment="TOP_RIGHT" layoutX="471.0" layoutY="-2.0" nodeOrientation="RIGHT_TO_LEFT" style="-fx-background-color: #023c57;">
                <children>
                   <Button fx:id="btnClose" alignment="TOP_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#fechar" styleClass="clsbtn" stylesheets="@../../../Css/principal.css" text="x" textAlignment="JUSTIFY">
                      <font>
