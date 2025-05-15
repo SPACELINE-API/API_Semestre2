@@ -99,6 +99,8 @@ public class mostrarOHistórico implements Initializable {
         ObservableList<Historico> historicoList = DatabaseManager.carregarHistorico();
         tableView.setItems(historicoList);
 
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
 
     }
 }

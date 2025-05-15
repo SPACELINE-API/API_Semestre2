@@ -33,11 +33,11 @@
    </top>
    <center>
       <TableView fx:id="tableView">
-        <columns>
-           <TableColumn fx:id="codigoColumn" minWidth="-1.0" prefWidth="150.0" text="Código" />
-           <TableColumn fx:id="explicacaoColumn" minWidth="-1.0" prefWidth="250.0" text="Explicação" />
-           <TableColumn fx:id="dataCriacaoColumn" minWidth="-1.0" prefWidth="180.0" text="Data de Criação" />
-        </columns>
+         <columns>
+            <TableColumn fx:id="codigoColumn" minWidth="150.0" text="Código" />
+            <TableColumn fx:id="explicacaoColumn" minWidth="250.0"  text="Explicação" />
+            <TableColumn fx:id="dataCriacaoColumn" minWidth="180.0" text="Data de Criação" />
+         </columns>
       </TableView>
    </center>
 </BorderPane>
