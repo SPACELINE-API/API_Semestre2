@@ -39,8 +39,6 @@
          <padding>
             <Insets top="10" right="10" bottom="10" left="10"/>
          </padding>
-
-         <!-- Caixa da Tabela de Explicações -->
          <VBox spacing="5" VBox.vgrow="ALWAYS" style="-fx-border-color: #ccc; -fx-border-width: 1;" prefWidth="300">
             <Label text="Explicações" style="-fx-font-weight: bold; -fx-font-size: 14;" />
             <TableView fx:id="tableExplicacoes" prefHeight="400" VBox.vgrow="ALWAYS">
@@ -51,8 +49,6 @@
                </columns>
             </TableView>
          </VBox>
-
-         <!-- Caixa da Tabela de Sugestões -->
          <VBox spacing="5" VBox.vgrow="ALWAYS" style="-fx-border-color: #ccc; -fx-border-width: 1;" prefWidth="300">
             <Label text="Sugestões" style="-fx-font-weight: bold; -fx-font-size: 14;" />
             <TableView fx:id="tableSugestoes" prefHeight="400" VBox.vgrow="ALWAYS">
@@ -63,8 +59,6 @@
                </columns>
             </TableView>
          </VBox>
-
-         <!-- Caixa da Tabela de Traduções -->
          <VBox spacing="5" VBox.vgrow="ALWAYS" style="-fx-border-color: #ccc; -fx-border-width: 1;" prefWidth="300">
             <Label text="Traduções" style="-fx-font-weight: bold; -fx-font-size: 14;" />
             <TableView fx:id="tableTraducoes" prefHeight="400" VBox.vgrow="ALWAYS">

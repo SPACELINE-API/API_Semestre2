@@ -10,7 +10,7 @@ public class HistoricoDAO {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/sputnik", "root", "");
     }
 
-    // -------------------- EXPLICAÇÃO --------------------
+
     public void salvarExplicacao(Explicacao explicacao) {
         String sql = "INSERT INTO historico_explicacoes (codigo, explicacao, data_criacao) VALUES (?, ?, ?)";
         try (Connection conn = conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -41,7 +41,7 @@ public class HistoricoDAO {
         return lista;
     }
 
-    // -------------------- SUGESTÃO --------------------
+
     public void salvarSugestao(Sugestao sugestao) {
         String sql = "INSERT INTO historico_sugestoes (codigo_sugestao, sugestao, data_criacao_sugestao) VALUES (?, ?, ?)";
         try (Connection conn = conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -72,7 +72,7 @@ public class HistoricoDAO {
         return lista;
     }
 
-    // -------------------- TRADUÇÃO --------------------
+
     public void salvarTraducao(Traducao traducao) {
         String sql = "INSERT INTO historico_traducao (codigo_traducao, traducao, data_criacao_traducao) VALUES (?, ?, ?)";
         try (Connection conn = conectar(); PreparedStatement stmt = conn.prepareStatement(sql)) {

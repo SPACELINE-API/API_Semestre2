@@ -15,7 +15,7 @@ public class DatabaseManager {
     private static final String USER = "root";
     private static final String PASSWORD = "fatec";
 
-    // Salvar explicação
+
     public static void salvarExplicacao(String codigo, String explicacao, LocalDateTime dataCriacao) {
         String sql = "INSERT INTO historico_explicacoes (codigo, explicacao, data_criacao) VALUES (?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -29,7 +29,7 @@ public class DatabaseManager {
         }
     }
 
-    // Salvar sugestão
+
     public static void salvarSugestao(String codigo, String sugestao, LocalDateTime dataCriacao) {
         String sql = "INSERT INTO sugestoes (codigo, sugestao, data_criacao) VALUES (?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -43,7 +43,7 @@ public class DatabaseManager {
         }
     }
 
-    // Salvar tradução
+
     public static void salvarTraducao(String codigo, String traducao, LocalDateTime dataCriacao) {
         String sql = "INSERT INTO traducoes (codigo, traducao, data_criacao) VALUES (?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -57,7 +57,7 @@ public class DatabaseManager {
         }
     }
 
-    // Carregar explicações
+
     public static ObservableList<Explicacao> carregarHistorico() {
         ObservableList<Explicacao> historicoList = FXCollections.observableArrayList();
         String sql = "SELECT codigo, explicacao, data_criacao FROM historico_explicacoes";
@@ -77,7 +77,7 @@ public class DatabaseManager {
         return historicoList;
     }
 
-    // Carregar sugestões
+
     public static ObservableList<Sugestao> carregarSugestoes() {
         ObservableList<Sugestao> sugestaoList = FXCollections.observableArrayList();
         String sql = "SELECT codigo, sugestao, data_criacao FROM sugestoes";
@@ -97,7 +97,7 @@ public class DatabaseManager {
         return sugestaoList;
     }
 
-    // Carregar traduções
+
     public static ObservableList<Traducao> carregarTraducoes() {
         ObservableList<Traducao> traducaoList = FXCollections.observableArrayList();
         String sql = "SELECT codigo, traducao, data_criacao FROM traducoes";
