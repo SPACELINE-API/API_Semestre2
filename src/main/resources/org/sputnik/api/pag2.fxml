@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
 
 <BorderPane fx:id="" stylesheets="@../../../Css/principal.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sputnik.api.mostrarOHistórico">
    <top>
@@ -32,12 +35,47 @@
       </AnchorPane>
    </top>
    <center>
-      <TableView fx:id="tableView">
-         <columns>
-            <TableColumn fx:id="codigoColumn" minWidth="150.0" text="Código" />
-            <TableColumn fx:id="explicacaoColumn" minWidth="250.0"  text="Explicação" />
-            <TableColumn fx:id="dataCriacaoColumn" minWidth="180.0" text="Data de Criação" />
-         </columns>
-      </TableView>
+      <HBox spacing="15" >
+         <padding>
+            <Insets top="10" right="10" bottom="10" left="10"/>
+         </padding>
+
+         <!-- Caixa da Tabela de Explicações -->
+         <VBox spacing="5" VBox.vgrow="ALWAYS" style="-fx-border-color: #ccc; -fx-border-width: 1;" prefWidth="300">
+            <Label text="Explicações" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+            <TableView fx:id="tableExplicacoes" prefHeight="400" VBox.vgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="colCodExp" minWidth="80" text="Código" />
+                  <TableColumn fx:id="colExplicacao" minWidth="150" text="Explicação" />
+                  <TableColumn fx:id="colDataExp" minWidth="120" text="Data de Criação" />
+               </columns>
+            </TableView>
+         </VBox>
+
+         <!-- Caixa da Tabela de Sugestões -->
+         <VBox spacing="5" VBox.vgrow="ALWAYS" style="-fx-border-color: #ccc; -fx-border-width: 1;" prefWidth="300">
+            <Label text="Sugestões" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+            <TableView fx:id="tableSugestoes" prefHeight="400" VBox.vgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="colCodSug" minWidth="80" text="Código" />
+                  <TableColumn fx:id="colSugestao" minWidth="150" text="Sugestão" />
+                  <TableColumn fx:id="colDataSug" minWidth="120" text="Data de Criação" />
+               </columns>
+            </TableView>
+         </VBox>
+
+         <!-- Caixa da Tabela de Traduções -->
+         <VBox spacing="5" VBox.vgrow="ALWAYS" style="-fx-border-color: #ccc; -fx-border-width: 1;" prefWidth="300">
+            <Label text="Traduções" style="-fx-font-weight: bold; -fx-font-size: 14;" />
+            <TableView fx:id="tableTraducoes" prefHeight="400" VBox.vgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="colCodTrad" minWidth="80" text="Código" />
+                  <TableColumn fx:id="colTraducao" minWidth="150" text="Tradução" />
+                  <TableColumn fx:id="colDataTrad" minWidth="120" text="Data de Criação" />
+               </columns>
+            </TableView>
+         </VBox>
+
+      </HBox>
    </center>
 </BorderPane>

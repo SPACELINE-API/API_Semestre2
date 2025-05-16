@@ -1,13 +1,13 @@
 package org.sputnik.api;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
-public class Historico {
+public class Explicacao {
     private String codigo;
     private String explicacao;
-    private Timestamp dataCriacao;
+    private LocalDateTime dataCriacao;
 
-    public Historico(String codigo, String explicacao, Timestamp dataCriacao) {
+    public Explicacao(String codigo, String explicacao, LocalDateTime dataCriacao) {
         this.codigo = codigo;
         this.explicacao = explicacao;
         this.dataCriacao = dataCriacao;
@@ -29,11 +29,11 @@ public class Historico {
         this.explicacao = explicacao;
     }
 
-    public Timestamp getDataCriacao() {
+    public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Timestamp dataCriacao) {
+    public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 }

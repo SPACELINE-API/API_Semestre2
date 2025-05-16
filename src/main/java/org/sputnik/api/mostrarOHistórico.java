@@ -21,16 +21,31 @@ public class mostrarOHistórico implements Initializable {
     private double yOffset = 0;
 
     @FXML
-    private TableView<Historico> tableView;
+    private TableView<Explicacao> tableExplicacoes;
+    @FXML
+    private TableColumn<Explicacao, String> colCodExp;
+    @FXML
+    private TableColumn<Explicacao, String> colExplicacao;
+    @FXML
+    private TableColumn<Explicacao, String> colDataExp;
 
     @FXML
-    private TableColumn<Historico, String> codigoColumn;
+    private TableView<Sugestao> tableSugestoes;
+    @FXML
+    private TableColumn<Sugestao, String> colCodSug;
+    @FXML
+    private TableColumn<Sugestao, String> colSugestao;
+    @FXML
+    private TableColumn<Sugestao, String> colDataSug;
 
     @FXML
-    private TableColumn<Historico, String> explicacaoColumn;
-
+    private TableView<Traducao> tableTraducoes;
     @FXML
-    private TableColumn<Historico, String> dataCriacaoColumn;
+    private TableColumn<Traducao, String> colCodTrad;
+    @FXML
+    private TableColumn<Traducao, String> colTraducao;
+    @FXML
+    private TableColumn<Traducao, String> colDataTrad;
 
     @FXML
     private Button btnClose;
@@ -86,21 +101,33 @@ public class mostrarOHistórico implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        codigoColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getCodigo()));
-
-        explicacaoColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getExplicacao()));
-
-        dataCriacaoColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getDataCriacao().toString()));
+        colCodExp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+        colExplicacao.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExplicacao()));
+        colDataExp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDataCriacao().toString()));
 
 
-        ObservableList<Historico> historicoList = DatabaseManager.carregarHistorico();
-        tableView.setItems(historicoList);
+        colCodSug.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+        colSugestao.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSugestao()));
+        colDataSug.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDataCriacao().toString()));
 
-        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        colCodTrad.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+        colTraducao.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTraducao()));
+        colDataTrad.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDataCriacao().toString()));
 
+
+        ObservableList<Explicacao> explicacoes = DatabaseManager.carregarHistorico();
+        tableExplicacoes.setItems(explicacoes);
+
+        ObservableList<Sugestao> sugestoes = DatabaseManager.carregarSugestoes();
+        tableSugestoes.setItems(sugestoes);
+
+        ObservableList<Traducao> traducoes = DatabaseManager.carregarTraducoes();
+        tableTraducoes.setItems(traducoes);
+
+        // Ajuste resize policy para todas as tabelas
+        tableExplicacoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableSugestoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableTraducoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
     }
 }

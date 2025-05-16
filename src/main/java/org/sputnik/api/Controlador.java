@@ -555,7 +555,7 @@ public class Controlador implements Initializable {
                 try {
                     String resposta = IA.getRespostaIA(entrada);
                     Timestamp dataCriacao = new Timestamp(System.currentTimeMillis());
-                    DatabaseManager.salvarExplicacao(entrada, resposta, dataCriacao);
+                    DatabaseManager.salvarExplicacao(entrada, resposta, dataCriacao.toLocalDateTime());
                     javafx.application.Platform.runLater(() -> output.setText(resposta));
                 } catch (Exception ex) {
                     javafx.application.Platform.runLater(() -> output.setText("Erro ao tentar obter explicação: " + ex.getMessage()));
