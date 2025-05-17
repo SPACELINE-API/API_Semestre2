@@ -88,9 +88,9 @@ public class DatabaseManager {
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                String codigo = rs.getString("codigo");
+                String codigo = rs.getString("codigo_sugestao");
                 String sugestao = rs.getString("sugestao");
-                Timestamp ts = rs.getTimestamp("data_criacao");
+                Timestamp ts = rs.getTimestamp("data_criacao_sugestao");
                 LocalDateTime dataCriacao = ts.toLocalDateTime();
                 sugestaoList.add(new Sugestao(codigo, sugestao, dataCriacao));
             }
@@ -108,9 +108,9 @@ public class DatabaseManager {
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
-                String codigo = rs.getString("codigo");
+                String codigo = rs.getString("codigo_traducao");
                 String traducao = rs.getString("traducao");
-                Timestamp ts = rs.getTimestamp("data_criacao");
+                Timestamp ts = rs.getTimestamp("data_criacao_traducao");
                 LocalDateTime dataCriacao = ts.toLocalDateTime();
                 traducaoList.add(new Traducao(codigo, traducao, dataCriacao));
             }

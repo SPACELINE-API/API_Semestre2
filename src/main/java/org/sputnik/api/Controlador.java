@@ -624,6 +624,8 @@ public class Controlador implements Initializable {
             new Thread(() -> {
                 try {
                     String resposta = IA.getTraducaoIA(entrada, linguagem);
+                    Timestamp dataCriacao = new Timestamp(System.currentTimeMillis());
+                    DatabaseManager.salvarTraducao(entrada, resposta, dataCriacao.toLocalDateTime());
                     javafx.application.Platform.runLater(() -> output.setText(resposta));
                 } catch (Exception ex) {
                     javafx.application.Platform.runLater(() -> output.setText("Erro ao tentar obter tradução: " + ex.getMessage()));
@@ -682,6 +684,8 @@ public class Controlador implements Initializable {
                 try {
                     String resposta = IA.getSugestaoIA(entrada);
                     javafx.application.Platform.runLater(() -> output.setText(resposta));
+                    Timestamp dataCriacao = new Timestamp(System.currentTimeMillis());
+                    DatabaseManager.salvarSugestao(entrada, resposta, dataCriacao.toLocalDateTime());
                 } catch (Exception ex) {
                     javafx.application.Platform.runLater(() -> output.setText("Erro ao tentar obter sugestão: " + ex.getMessage()));
                     ex.printStackTrace();
