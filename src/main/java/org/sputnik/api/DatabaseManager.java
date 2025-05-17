@@ -31,7 +31,7 @@ public class DatabaseManager {
 
 
     public static void salvarSugestao(String codigo, String sugestao, LocalDateTime dataCriacao) {
-        String sql = "INSERT INTO sugestoes (codigo, sugestao, data_criacao) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO historico_sugestoes (codigo_sugestao, sugestao, data_criacao_sugestao) VALUES (?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, codigo);
@@ -45,7 +45,7 @@ public class DatabaseManager {
 
 
     public static void salvarTraducao(String codigo, String traducao, LocalDateTime dataCriacao) {
-        String sql = "INSERT INTO traducoes (codigo, traducao, data_criacao) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO historico_traducao (codigo_traducao, traducao, data_criacao_traducao) VALUES (?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, codigo);
@@ -68,7 +68,10 @@ public class DatabaseManager {
                 String codigo = rs.getString("codigo");
                 String explicacao = rs.getString("explicacao");
                 Timestamp ts = rs.getTimestamp("data_criacao");
-                LocalDateTime dataCriacao = ts.toLocalDateTime();
+                LocalDateTime dataCriacao = null;
+                if (ts != null) {
+                    dataCriacao = ts.toLocalDateTime();
+                }
                 historicoList.add(new Explicacao(codigo, explicacao, dataCriacao));
             }
         } catch (SQLException e) {
@@ -80,7 +83,7 @@ public class DatabaseManager {
 
     public static ObservableList<Sugestao> carregarSugestoes() {
         ObservableList<Sugestao> sugestaoList = FXCollections.observableArrayList();
-        String sql = "SELECT codigo, sugestao, data_criacao FROM sugestoes";
+        String sql = "SELECT codigo_sugestao, sugestao, data_criacao_sugestao FROM historico_sugestoes";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
@@ -100,7 +103,7 @@ public class DatabaseManager {
 
     public static ObservableList<Traducao> carregarTraducoes() {
         ObservableList<Traducao> traducaoList = FXCollections.observableArrayList();
-        String sql = "SELECT codigo, traducao, data_criacao FROM traducoes";
+        String sql = "SELECT codigo_traducao, traducao, data_criacao_traducao FROM historico_traducao";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
