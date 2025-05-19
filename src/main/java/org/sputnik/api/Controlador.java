@@ -777,7 +777,7 @@ public class Controlador implements Initializable {
         Stage popup = new Stage();
         popup.setTitle("Histórico");
 
-        // --- Tabela de Explicações ---
+        /*Tabela de explicação*/
         TableView<Explicacao> tableExplicacoes = new TableView<>();
         TableColumn<Explicacao, String> colCodExp = new TableColumn<>("Código");
         colCodExp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
@@ -791,7 +791,7 @@ public class Controlador implements Initializable {
         tableExplicacoes.getColumns().addAll(colCodExp, colExplicacao, colDataExp);
         tableExplicacoes.setItems(DatabaseManager.carregarHistorico());
 
-        // --- Tabela de Sugestões ---
+        /*a de sugestão*/
         TableView<Sugestao> tableSugestoes = new TableView<>();
         TableColumn<Sugestao, String> colCodSug = new TableColumn<>("Código");
         colCodSug.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
@@ -805,7 +805,7 @@ public class Controlador implements Initializable {
         tableSugestoes.getColumns().addAll(colCodSug, colSugestao, colDataSug);
         tableSugestoes.setItems(DatabaseManager.carregarSugestoes());
 
-        // --- Tabela de Traduções ---
+        /*a de tradução*/
         TableView<Traducao> tableTraducoes = new TableView<>();
         TableColumn<Traducao, String> colCodTrad = new TableColumn<>("Código");
         colCodTrad.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
@@ -819,9 +819,7 @@ public class Controlador implements Initializable {
         tableTraducoes.getColumns().addAll(colCodTrad, colTraducao, colDataTrad);
         tableTraducoes.setItems(DatabaseManager.carregarTraducoes());
 
-        // --- Abas ---
         TabPane tabPane = new TabPane();
-
         Tab tabExp = new Tab("Explicações", tableExplicacoes);
         Tab tabSug = new Tab("Sugestões", tableSugestoes);
         Tab tabTrad = new Tab("Traduções", tableTraducoes);
