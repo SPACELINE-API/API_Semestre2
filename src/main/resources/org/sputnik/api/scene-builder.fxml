@@ -8,6 +8,8 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TreeView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -23,11 +25,16 @@
 
     <center>
         <StackPane style="-fx-background-color: #04293A;" BorderPane.alignment="CENTER">
+         <ImageView fx:id="SputnikImagem" fitHeight="198.0" fitWidth="281.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" rotate="-90.0" translateX="-90.0" translateY="-40.0">
+            <image>
+               <Image url="@../../../Css/imagem/satelite%20(2).png" />
+            </image>
+         </ImageView>
             <VBox fx:id="telaInicialBox" alignment="TOP_CENTER" spacing="10" stylesheets="@../../../Css/principal.css">
                 <children>
                     <Label styleClass="title" text="Sputnik" />
                     <HBox styleClass="meio">
-                        <Button mnemonicParsing="false" onAction="#novoArquivo" styleClass="meio" text="Novo arquivo"/>
+                        <Button mnemonicParsing="false" onAction="#novoArquivo" styleClass="meio" text="Novo arquivo" />
                         <Label styleClass="atalho" text="Ctrl + N" />
                     </HBox>
                     <HBox styleClass="meio">
@@ -37,8 +44,8 @@
                     <Label accessibleRole="BUTTON" styleClass="meio" />
                 </children>
             </VBox>
-
-            <TabPane fx:id="tabPane" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../Css/principal.css" tabClosingPolicy="ALL_TABS" />
+   
+                                    <TabPane fx:id="tabPane" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../Css/principal.css" tabClosingPolicy="ALL_TABS" />
         </StackPane>
     </center>
 
