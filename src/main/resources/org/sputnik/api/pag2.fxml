@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane fx:id="" stylesheets="@../../../Css/principal.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.sputnik.api.mostrarOHistórico">
    <top>
       <AnchorPane fx:id="topPane" nodeOrientation="LEFT_TO_RIGHT" onMouseDragged="#movimento" onMousePressed="#click" style="-fx-background-color: #023c57;" BorderPane.alignment="TOP_RIGHT">
@@ -32,35 +33,35 @@
          </children>
       </AnchorPane>
    </top>
+   <ScrollPane fitToHeight="true" hbarPolicy="AS_NEEDED" vbarPolicy="AS_NEEDED">
+      <content>
+         <HBox spacing="10.0" style="-fx-padding: 10;" VBox.vgrow="ALWAYS">
+            <children>
+               <TableView fx:id="tableExplicacoes" prefWidth="400.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                  <columns>
+                     <TableColumn fx:id="colCodExp" minWidth="80.0" prefWidth="200.0" text="Código" />
+                     <TableColumn fx:id="colExplicacao" minWidth="80.0" prefWidth="200.0" text="Explicação" />
+                     <TableColumn fx:id="colDataExp" minWidth="100.0" prefWidth="200.0" text="Data de Criação" />
+                  </columns>
+               </TableView>
 
-   <center>
-      <HBox spacing="10.0" style="-fx-padding: 10;" VBox.vgrow="ALWAYS">
-         <children>
-            <TableView fx:id="tableExplicacoes" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-               <columns>
-                  <TableColumn fx:id="colCodExp" minWidth="80.0" prefWidth="-1.0" text="Código" />
-                  <TableColumn fx:id="colExplicacao" minWidth="80.0" prefWidth="-1.0" text="Explicação" />
-                  <TableColumn fx:id="colDataExp" minWidth="100.0" prefWidth="-1.0" text="Data de Criação" />
-               </columns>
-            </TableView>
+               <TableView fx:id="tableSugestoes" prefWidth="400.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                  <columns>
+                     <TableColumn fx:id="colCodSug" minWidth="80.0" prefWidth="200.0" text="Código" />
+                     <TableColumn fx:id="colSugestao" minWidth="80.0" prefWidth="200.0" text="Sugestão" />
+                     <TableColumn fx:id="colDataSug" minWidth="100.0" prefWidth="200.0" text="Data de Criação" />
+                  </columns>
+               </TableView>
 
-            <TableView fx:id="tableSugestoes" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-               <columns>
-                  <TableColumn fx:id="colCodSug" minWidth="80.0" prefWidth="-1.0" text="Código" />
-                  <TableColumn fx:id="colSugestao" minWidth="80.0" prefWidth="-1.0" text="Sugestão" />
-                  <TableColumn fx:id="colDataSug" minWidth="100.0" prefWidth="-1.0" text="Data de Criação" />
-               </columns>
-            </TableView>
-
-            <TableView fx:id="tableTraducoes" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
-               <columns>
-                  <TableColumn fx:id="colCodTrad" minWidth="80.0" prefWidth="-1.0" text="Código" />
-                  <TableColumn fx:id="colTraducao" minWidth="80.0" prefWidth="-1.0" text="Tradução" />
-                  <TableColumn fx:id="colDataTrad" minWidth="100.0" prefWidth="-1.0" text="Data de Criação" />
-               </columns>
-            </TableView>
-         </children>
-      </HBox>
-
-   </center>
+               <TableView fx:id="tableTraducoes" prefWidth="400.0" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
+                  <columns>
+                     <TableColumn fx:id="colCodTrad" minWidth="80.0" prefWidth="200.0" text="Código" />
+                     <TableColumn fx:id="colTraducao" minWidth="80.0" prefWidth="200.0" text="Tradução" />
+                     <TableColumn fx:id="colDataTrad" minWidth="100.0" prefWidth="200.0" text="Data de Criação" />
+                  </columns>
+               </TableView>
+            </children>
+         </HBox>
+      </content>
+   </ScrollPane>
 </BorderPane>
