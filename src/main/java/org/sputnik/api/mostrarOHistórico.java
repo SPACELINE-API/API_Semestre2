@@ -128,7 +128,6 @@ public class mostrarOHistórico implements Initializable {
         tableExplicacoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableSugestoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableTraducoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
     }
 }
 
