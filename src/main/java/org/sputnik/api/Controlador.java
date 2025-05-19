@@ -27,6 +27,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -786,7 +787,11 @@ public class Controlador implements Initializable {
         colExplicacao.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExplicacao()));
 
         TableColumn<Explicacao, String> colDataExp = new TableColumn<>("Data");
-        colDataExp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDataCriacao().toString()));
+        colDataExp.setCellValueFactory(cellData -> {
+            LocalDateTime data = cellData.getValue().getDataCriacao();
+            String dataStr = (data != null) ? data.toString() : "Sem data";
+            return new SimpleStringProperty(dataStr);
+        });
 
         tableExplicacoes.getColumns().addAll(colCodExp, colExplicacao, colDataExp);
         tableExplicacoes.setItems(DatabaseManager.carregarHistorico());
