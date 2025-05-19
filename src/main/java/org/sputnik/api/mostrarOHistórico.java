@@ -124,10 +124,6 @@ public class mostrarOHistórico implements Initializable {
         ObservableList<Traducao> traducoes = DatabaseManager.carregarTraducoes();
         tableTraducoes.setItems(traducoes);
 
-
-        tableExplicacoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tableSugestoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tableTraducoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
     }
 }
 
