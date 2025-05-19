@@ -1,12 +1,12 @@
 package org.sputnik.api;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -32,7 +32,6 @@ import java.sql.Timestamp;
 import java.util.*;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
-import javafx.stage.StageStyle;
 import org.fife.ui.autocomplete.*;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
@@ -779,13 +778,37 @@ public class Controlador implements Initializable {
 
     }
 
-    @FXML
-    public void mostrarHistórico() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("pag2.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setScene(scene);
-        stage.show();
+
+    void mostrarHistorico() {
+        Stage popup = new Stage();
+        popup.setTitle("Histórico de Explicações");
+
+        TableView<Historico> tableView = new TableView<>();
+        TableColumn<Historico, String> codigoColumn = new TableColumn<>("Código");
+        codigoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+
+        TableColumn<Historico, String> explicacaoColumn = new TableColumn<>("Explicação");
+        explicacaoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExplicacao()));
+
+        tableView.getColumns().add(codigoColumn);
+        tableView.getColumns().add(explicacaoColumn);
+
+        ObservableList<Historico> historicoList = DatabaseManager.carregarHistorico();
+        tableView.setItems(historicoList);
+
+        VBox layout = new VBox(10);
+        layout.setStyle("-fx-padding: 30;");
+        layout.getChildren().add(tableView);
+        layout.getStyleClass().add("popup");
+
+        Scene scene = new Scene(layout, 500, 300);
+        scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
+        popup.setScene(scene);
+
+        if (tabPane != null && tabPane.getScene() != null) {
+            popup.initOwner(tabPane.getScene().getWindow());
+        }
+
+        popup.show();
     }
 }
