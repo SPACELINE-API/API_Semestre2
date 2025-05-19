@@ -14,15 +14,13 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
@@ -168,11 +166,7 @@ public class Controlador implements Initializable {
                     event.consume();
                 }
                 if (event.isControlDown()&& event.getCode() == KeyCode.D) {
-                    try {
-                        mostrarHistórico();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
+                    mostrarHistorico();
                     event.consume();
                 }
             });
@@ -778,37 +772,78 @@ public class Controlador implements Initializable {
 
     }
 
-
+    @FXML
     void mostrarHistorico() {
         Stage popup = new Stage();
-        popup.setTitle("Histórico de Explicações");
+        popup.setTitle("Histórico");
 
-        TableView<Historico> tableView = new TableView<>();
-        TableColumn<Historico, String> codigoColumn = new TableColumn<>("Código");
-        codigoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+        // --- Tabela de Explicações ---
+        TableView<Explicacao> tableExplicacoes = new TableView<>();
+        TableColumn<Explicacao, String> colCodExp = new TableColumn<>("Código");
+        colCodExp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
 
-        TableColumn<Historico, String> explicacaoColumn = new TableColumn<>("Explicação");
-        explicacaoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExplicacao()));
+        TableColumn<Explicacao, String> colExplicacao = new TableColumn<>("Explicação");
+        colExplicacao.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExplicacao()));
 
-        tableView.getColumns().add(codigoColumn);
-        tableView.getColumns().add(explicacaoColumn);
+        TableColumn<Explicacao, String> colDataExp = new TableColumn<>("Data");
+        colDataExp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDataCriacao().toString()));
 
-        ObservableList<Historico> historicoList = DatabaseManager.carregarHistorico();
-        tableView.setItems(historicoList);
+        tableExplicacoes.getColumns().addAll(colCodExp, colExplicacao, colDataExp);
+        tableExplicacoes.setItems(DatabaseManager.carregarHistorico());
 
-        VBox layout = new VBox(10);
-        layout.setStyle("-fx-padding: 30;");
-        layout.getChildren().add(tableView);
-        layout.getStyleClass().add("popup");
+        // --- Tabela de Sugestões ---
+        TableView<Sugestao> tableSugestoes = new TableView<>();
+        TableColumn<Sugestao, String> colCodSug = new TableColumn<>("Código");
+        colCodSug.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
 
-        Scene scene = new Scene(layout, 500, 300);
+        TableColumn<Sugestao, String> colSugestao = new TableColumn<>("Sugestão");
+        colSugestao.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSugestao()));
+
+        TableColumn<Sugestao, String> colDataSug = new TableColumn<>("Data");
+        colDataSug.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDataCriacao().toString()));
+
+        tableSugestoes.getColumns().addAll(colCodSug, colSugestao, colDataSug);
+        tableSugestoes.setItems(DatabaseManager.carregarSugestoes());
+
+        // --- Tabela de Traduções ---
+        TableView<Traducao> tableTraducoes = new TableView<>();
+        TableColumn<Traducao, String> colCodTrad = new TableColumn<>("Código");
+        colCodTrad.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+
+        TableColumn<Traducao, String> colTraducao = new TableColumn<>("Tradução");
+        colTraducao.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTraducao()));
+
+        TableColumn<Traducao, String> colDataTrad = new TableColumn<>("Data");
+        colDataTrad.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDataCriacao().toString()));
+
+        tableTraducoes.getColumns().addAll(colCodTrad, colTraducao, colDataTrad);
+        tableTraducoes.setItems(DatabaseManager.carregarTraducoes());
+
+        // --- Abas ---
+        TabPane tabPane = new TabPane();
+
+        Tab tabExp = new Tab("Explicações", tableExplicacoes);
+        Tab tabSug = new Tab("Sugestões", tableSugestoes);
+        Tab tabTrad = new Tab("Traduções", tableTraducoes);
+
+        tabPane.getTabs().addAll(tabExp, tabSug, tabTrad);
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+        VBox layout = new VBox(tabPane);
+        VBox.setVgrow(tabPane, Priority.ALWAYS);
+        VBox.setVgrow(tableExplicacoes, Priority.ALWAYS);
+        VBox.setVgrow(tableSugestoes, Priority.ALWAYS);
+        VBox.setVgrow(tableTraducoes, Priority.ALWAYS);
+
+        tableTraducoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableSugestoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableExplicacoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        Scene scene = new Scene(layout, 700, 400);
+        scene.setFill(null);
         scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
         popup.setScene(scene);
-
-        if (tabPane != null && tabPane.getScene() != null) {
-            popup.initOwner(tabPane.getScene().getWindow());
-        }
-
+        popup.initModality(Modality.APPLICATION_MODAL);
         popup.show();
     }
 }

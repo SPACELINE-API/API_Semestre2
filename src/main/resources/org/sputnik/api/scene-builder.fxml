@@ -69,7 +69,7 @@
                 </Menu>
                   <Menu mnemonicParsing="false" text="Histórico">
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#mostrarHistórico" text="Ver Histórico" />
+                      <MenuItem mnemonicParsing="false" onAction="#mostrarHistorico" text="Ver Histórico" />
                     </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Sugestões">
