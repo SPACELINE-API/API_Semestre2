@@ -849,6 +849,8 @@ public class Controlador implements Initializable {
         tableSugestoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableExplicacoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+        tableExplicacoes.setEditable(true);
+
         Scene scene = new Scene(layout, 700, 400);
         scene.setFill(null);
         scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
