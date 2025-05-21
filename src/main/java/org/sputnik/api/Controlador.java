@@ -1,5 +1,6 @@
 package org.sputnik.api;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
@@ -11,21 +12,22 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.*;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
@@ -33,15 +35,12 @@ import org.fife.ui.autocomplete.*;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import javax.swing.*;
-import javafx.application.Platform;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 
 
 public class Controlador implements Initializable {
 
-    private double xOffset=0;
-    private double yOffset=0;
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @FXML
     private TreeView<String> treeView;
@@ -73,7 +72,7 @@ public class Controlador implements Initializable {
 
     /*barra de título*/
     @FXML
-    private void  fechar(ActionEvent event) {
+    private void fechar(ActionEvent event) {
         Stage stage = (Stage) btnClose.getScene().getWindow();
 
         stage.close();
@@ -97,15 +96,15 @@ public class Controlador implements Initializable {
     private void click(MouseEvent event) {
         Stage stage = (Stage) topPane.getScene().getWindow();
 
-        xOffset=stage .getX() - event.getScreenX();
-        yOffset=stage.getY() - event.getScreenY();
+        xOffset = stage.getX() - event.getScreenX();
+        yOffset = stage.getY() - event.getScreenY();
     }
 
     @FXML
     private void movimento(MouseEvent event) {
         Stage stage = (Stage) btnTab.getScene().getWindow();
 
-        stage.setX(event.getScreenX() + xOffset );
+        stage.setX(event.getScreenX() + xOffset);
         stage.setY(event.getScreenY() + yOffset);
     }
 
@@ -129,6 +128,8 @@ public class Controlador implements Initializable {
             }
         });
 
+
+        /*Atalhos*/
         Platform.runLater(() -> {
             Scene scene = topPane.getScene();
             scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
@@ -161,12 +162,12 @@ public class Controlador implements Initializable {
                     explicar();
                     event.consume();
                 }
-                if (event.isControlDown() && event.getCode() == KeyCode.D) {
-                    mostrarHistorico();
-                    event.consume();
-                }
                 if (event.isControlDown() && event.getCode() == KeyCode.R) {
                     sugerir();
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.D) {
+                    mostrarHistorico();
                     event.consume();
                 }
             });
@@ -413,18 +414,19 @@ public class Controlador implements Initializable {
             textArea.setCaretPosition(0);
             textArea.setAntiAliasingEnabled(true);
 
-
             try {
-                Theme theme = Theme.load(EditorRSyntaxFactory.class.getResourceAsStream(
-                        "/Themes/monokai.xml"));
+                Theme theme = Theme.load(EditorRSyntaxFactory.class.getResourceAsStream("/Themes/monokai.xml"));
                 theme.apply(textArea);
-            } catch (IOException ioe) { // Never happens
+            } catch (IOException ioe) {
                 ioe.printStackTrace();
             }
 
-//            CompletionProvider provider = createCompletionProvider();
-//            AutoCompletion ac = new AutoCompletion(provider);
-//            ac.install(textArea);
+            CompletionProvider provider = createCompletionProvider(linguagem);
+            AutoCompletion ac = new AutoCompletion(provider);
+            ac.setAutoActivationEnabled(true);
+            ac.setAutoActivationDelay(200);
+            ac.install(textArea);
+
 
             return new RTextScrollPane(textArea);
         }
@@ -440,30 +442,77 @@ public class Controlador implements Initializable {
                 case "text" -> SyntaxConstants.SYNTAX_STYLE_NONE;
                 default -> SyntaxConstants.SYNTAX_STYLE_NONE;
             };
-
         }
 
-//        private static CompletionProvider createCompletionProvider() {
-//            DefaultCompletionProvider provider = new DefaultCompletionProvider();
-//
-//            provider.addCompletion(new BasicCompletion(provider, "abstract"));
-//            provider.addCompletion(new BasicCompletion(provider, "assert"));
-//            provider.addCompletion(new BasicCompletion(provider, "break"));
-//            provider.addCompletion(new BasicCompletion(provider, "case"));
-//            provider.addCompletion(new BasicCompletion(provider, "transient"));
-//            provider.addCompletion(new BasicCompletion(provider, "try"));
-//            provider.addCompletion(new BasicCompletion(provider, "void"));
-//            provider.addCompletion(new BasicCompletion(provider, "volatile"));
-//            provider.addCompletion(new BasicCompletion(provider, "while"));
-//
-//            provider.addCompletion(new ShorthandCompletion(provider, "sysout",
-//                    "System.out.println(", "System.out.println("));
-//            provider.addCompletion(new ShorthandCompletion(provider, "syserr",
-//                    "System.err.println(", "System.err.println("));
-//
-//            return provider;
-//        }
-   }
+        private static DefaultCompletionProvider createCompletionProvider(String linguagem) {
+            DefaultCompletionProvider provider = new DefaultCompletionProvider();
+
+            if (linguagem.equalsIgnoreCase("python")) {
+                String[] pyKeywords = {
+                        "def", "class", "if", "elif", "else",
+                        "for", "while", "break", "continue",
+                        "try", "except", "finally", "with",
+                        "as", "import", "from", "return",
+                        "lambda", "pass", "yield", "global",
+                        "nonlocal", "assert", "raise", "del",
+                        "True", "False", "None"
+                };
+                for (String kw : pyKeywords) {
+                    provider.addCompletion(new BasicCompletion(provider, kw));
+                }
+
+                String[] pyBuiltins = {
+                        "abs", "all", "any", "ascii", "bin", "bool", "bytearray", "bytes",
+                        "callable", "chr", "classmethod", "compile", "complex", "delattr",
+                        "dict", "dir", "divmod", "enumerate", "eval", "filter", "float",
+                        "format", "frozenset", "getattr", "globals", "hasattr", "hash",
+                        "help", "hex", "id", "input", "int", "isinstance", "issubclass",
+                        "iter", "len", "list", "locals", "map", "max", "memoryview", "min",
+                        "next", "object", "oct", "open", "ord", "pow", "print", "property",
+                        "range", "repr", "reversed", "round", "set", "setattr", "slice",
+                        "sorted", "staticmethod", "str", "sum", "super", "tuple", "type",
+                        "vars", "zip", "__import__"
+                };
+                for (String fn : pyBuiltins) {
+                    provider.addCompletion(new BasicCompletion(provider, fn + "()"));
+                }
+
+                provider.addCompletion(new ShorthandCompletion(provider,
+                        "try",
+                        "try:\n\t${cursor}\nexcept Exception as e:\n\tprint(e)",
+                        "try:  \n    \nexcept Exception as e:  \n    "
+                ));
+                provider.addCompletion(new ShorthandCompletion(provider,
+                        "def",
+                        "def ${name}(${params}):\n\t${cursor}",
+                        "def ():  \n    "
+                ));
+                provider.addCompletion(new ShorthandCompletion(provider,
+                        "print",
+                        "print(${cursor})",
+                        "print()"
+                ));
+                provider.addCompletion(new ShorthandCompletion(provider,
+                        "fori",
+                        "for ${item} in ${iterable}:\n\t${cursor}",
+                        "for  in :  \n    "
+                ));
+                provider.addCompletion(new ShorthandCompletion(provider,
+                        "if",
+                        "if ${condition}:\n\t${cursor}",
+                        "if :  \n    "
+                ));
+            }
+
+            provider.setAutoActivationRules(true,
+                    "abcdefghijklmnopqrstuvwxyz" +
+                            "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_"
+            );
+
+            return provider;
+        }
+
+    }
 
 
     /*IA*/
@@ -500,7 +549,7 @@ public class Controlador implements Initializable {
                 try {
                     String resposta = IA.getRespostaIA(entrada);
                     Timestamp dataCriacao = new Timestamp(System.currentTimeMillis());
-                    DatabaseManager.salvarExplicacao(entrada, resposta, dataCriacao);
+                    DatabaseManager.salvarExplicacao(entrada, resposta, dataCriacao.toLocalDateTime());
                     javafx.application.Platform.runLater(() -> output.setText(resposta));
                 } catch (Exception ex) {
                     javafx.application.Platform.runLater(() -> output.setText("Erro ao tentar obter explicação: " + ex.getMessage()));
@@ -533,7 +582,7 @@ public class Controlador implements Initializable {
 
 
     @FXML
-    void traduzirLinguagem (javafx.event.ActionEvent event) {
+    void traduzirLinguagem(javafx.event.ActionEvent event) {
         MenuItem item = (MenuItem) event.getSource();
         String linguagem = (String) item.getUserData();
         traduzir(linguagem);
@@ -569,6 +618,8 @@ public class Controlador implements Initializable {
             new Thread(() -> {
                 try {
                     String resposta = IA.getTraducaoIA(entrada, linguagem);
+                    Timestamp dataCriacao = new Timestamp(System.currentTimeMillis());
+                    DatabaseManager.salvarTraducao(entrada, resposta, dataCriacao.toLocalDateTime());
                     javafx.application.Platform.runLater(() -> output.setText(resposta));
                 } catch (Exception ex) {
                     javafx.application.Platform.runLater(() -> output.setText("Erro ao tentar obter tradução: " + ex.getMessage()));
@@ -627,6 +678,8 @@ public class Controlador implements Initializable {
                 try {
                     String resposta = IA.getSugestaoIA(entrada);
                     javafx.application.Platform.runLater(() -> output.setText(resposta));
+                    Timestamp dataCriacao = new Timestamp(System.currentTimeMillis());
+                    DatabaseManager.salvarSugestao(entrada, resposta, dataCriacao.toLocalDateTime());
                 } catch (Exception ex) {
                     javafx.application.Platform.runLater(() -> output.setText("Erro ao tentar obter sugestão: " + ex.getMessage()));
                     ex.printStackTrace();
@@ -656,20 +709,23 @@ public class Controlador implements Initializable {
     }
 
 
-
     public Label criarLabel(String texto, String classe) {
         Label label = new Label(texto);
         label.getStyleClass().add("titulo");
         label.setWrapText(true);
         return label;
-    };
+    }
+
+    ;
 
     public Text criarText(String texto, Scene scene) {
         Text text = new Text(texto);
         text.getStyleClass().add("conteudo");
         text.wrappingWidthProperty().bind(scene.widthProperty().subtract(60));
         return text;
-    };
+    }
+
+    ;
 
     @FXML
     void ajuda() {
@@ -681,7 +737,6 @@ public class Controlador implements Initializable {
 
         VBox layout = new VBox(10);
         layout.setStyle("-fx-padding: 30;");
-        layout.getStyleClass().add("popup");
 
         ScrollPane scrollPane = new ScrollPane(layout);
         scrollPane.setFitToWidth(true);
@@ -718,48 +773,109 @@ public class Controlador implements Initializable {
         }
 
         popup.show();
-    }
 
+    }
 
     @FXML
     void mostrarHistorico() {
         Stage popup = new Stage();
-        popup.setTitle("Histórico de Explicações");
+        popup.setTitle("Histórico");
 
-        TableView<Historico> tableView = new TableView<>();
-        TableColumn<Historico, String> codigoColumn = new TableColumn<>("Código");
-        codigoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+        // --- Tabela de Explicações ---
+        TableView<Explicacao> tableExplicacoes = new TableView<>();
+        TableColumn<Explicacao, String> colCodExp = new TableColumn<>("Código");
+        colCodExp.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
 
-        TableColumn<Historico, String> explicacaoColumn = new TableColumn<>("Explicação");
-        explicacaoColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExplicacao()));
+        TableColumn<Explicacao, String> colExplicacao = new TableColumn<>("Explicação");
+        colExplicacao.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getExplicacao()));
 
-        TableColumn<Historico, String> dataColumn = new TableColumn<>("Data");
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-        dataColumn.setCellValueFactory(cellData -> {
-            Timestamp timestamp = cellData.getValue().getDataCriacao();
-            String formattedDate = (timestamp != null) ? dateFormat.format(timestamp) : "";
-            return new SimpleStringProperty(formattedDate);
+
+        TableColumn<Explicacao, String> colDataExp = new TableColumn<>("Data");
+        colDataExp.setCellValueFactory(cellData -> {
+            LocalDateTime data = cellData.getValue().getDataCriacao();
+            String dataStr = (data != null) ? data.toString() : "Sem data";
+            return new SimpleStringProperty(dataStr);
         });
 
-        tableView.getColumns().addAll(codigoColumn, explicacaoColumn, dataColumn);
+        tableExplicacoes.getColumns().addAll(colCodExp, colExplicacao, colDataExp);
+        tableExplicacoes.setItems(DatabaseManager.carregarHistorico());
 
-        tableView.setItems (DatabaseManager.carregarHistorico());
+        // --- Tabela de Sugestões ---
+        TableView<Sugestao> tableSugestoes = new TableView<>();
+        TableColumn<Sugestao, String> colCodSug = new TableColumn<>("Código");
+        colCodSug.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+
+        TableColumn<Sugestao, String> colSugestao = new TableColumn<>("Sugestão");
+        colSugestao.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSugestao()));
 
 
-        VBox layout = new VBox(10);
-        layout.setStyle("-fx-padding: 30;");
-        layout.getChildren().add(tableView);
-        layout.getStyleClass().add("popup");
+        TableColumn<Sugestao, String> colDataSug = new TableColumn<>("Data");
+        colDataSug.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDataCriacao().toString()));
 
-        Scene scene = new Scene(layout, 500, 300);
+        tableSugestoes.getColumns().addAll(colCodSug, colSugestao, colDataSug);
+        tableSugestoes.setItems(DatabaseManager.carregarSugestoes());
+
+        // --- Tabela de Traduções ---
+        TableView<Traducao> tableTraducoes = new TableView<>();
+        TableColumn<Traducao, String> colCodTrad = new TableColumn<>("Código");
+        colCodTrad.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+
+        TableColumn<Traducao, String> colTraducao = new TableColumn<>("Tradução");
+        colTraducao.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTraducao()));
+
+        TableColumn<Traducao, String> colDataTrad = new TableColumn<>("Data");
+        colDataTrad.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDataCriacao().toString()));
+
+        tableTraducoes.getColumns().addAll(colCodTrad, colTraducao, colDataTrad);
+        tableTraducoes.setItems(DatabaseManager.carregarTraducoes());
+
+        // --- Abas ---
+        TabPane tabPane = new TabPane();
+
+        Tab tabExp = new Tab("Explicações", tableExplicacoes);
+        Tab tabSug = new Tab("Sugestões", tableSugestoes);
+        Tab tabTrad = new Tab("Traduções", tableTraducoes);
+
+        tabPane.getTabs().addAll(tabExp, tabSug, tabTrad);
+        tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+
+        VBox layout = new VBox(tabPane);
+        VBox.setVgrow(tabPane, Priority.ALWAYS) ;
+        VBox.setVgrow(tableExplicacoes, Priority.ALWAYS);
+        VBox.setVgrow(tableSugestoes, Priority.ALWAYS);
+        VBox.setVgrow(tableTraducoes, Priority.ALWAYS);
+
+        tableTraducoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableSugestoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+        tableExplicacoes.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        Scene scene = new Scene(layout, 700, 400);
+        scene.setFill(null);
         scene.getStylesheets().add(getClass().getResource("/Css/principal.css").toExternalForm());
         popup.setScene(scene);
-
-        if (tabPane != null && tabPane.getScene() != null) {
-            popup.initOwner(tabPane.getScene().getWindow());
-        }
-
+        popup.initModality(Modality.APPLICATION_MODAL);
         popup.show();
     }
 
+    private <T> TableCell<T, String> createWrappedTextCell() {
+        return new TableCell<>() {
+            private final Text text = new Text();
+
+            {
+                text.wrappingWidthProperty().bind(getTableColumn().widthProperty().subtract(10));
+                text.setStyle("-fx-padding: 6px;");
+                setGraphic(text);
+            }
+
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    text.setText(null);
+                } else {
+                    text.setText(item);
+                }
+            }
+        };
+    }
 }

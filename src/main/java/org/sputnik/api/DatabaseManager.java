@@ -43,7 +43,6 @@ public class DatabaseManager {
         }
     }
 
-
     public static void salvarTraducao(String codigo, String traducao, LocalDateTime dataCriacao) {
         String sql = "INSERT INTO historico_traducao (codigo_traducao, traducao, data_criacao_traducao) VALUES (?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -99,7 +98,6 @@ public class DatabaseManager {
         }
         return sugestaoList;
     }
-
 
     public static ObservableList<Traducao> carregarTraducoes() {
         ObservableList<Traducao> traducaoList = FXCollections.observableArrayList();

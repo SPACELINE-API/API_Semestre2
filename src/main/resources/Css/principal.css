@@ -11,8 +11,9 @@
         .title {
             -fx-font-family: "Jura", sans-serif;
             -fx-font-size: 85px;
+            -fx-font-weight: bold;
             -fx-text-fill: #E0E0E0;
-            -fx-padding: 65px 0px 15px 0px;
+            -fx-padding: 0px 0 15px 0;
         }
 
         .meio {

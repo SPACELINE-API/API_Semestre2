@@ -1,4 +1,4 @@
-  # API - 2° Semestre ADS - FATEC SJC - Sprint 2
+  # API - 2° Semestre ADS - FATEC SJC - Sprint 3
 
   Projeto voltado para o desenvolvimento de um Ambiente Integrado de Desenvolvimento (IDE)
 
@@ -11,7 +11,7 @@
   
   Sprint | Previsão | Status|
   |------|--------|------|
-  |02| 07/04/2025 - 27/04/2025 | Concluído |
+  |03| 05/05/2025 - 25/05/2025 | em andamento |
 
 
   # Objetivo do Projeto
@@ -27,7 +27,7 @@ Clique na imagem abaixo para uma demonstração.
 
 
 # Backlog da Sprint
-![Image](https://github.com/user-attachments/assets/1f78aa32-0923-457e-b6d9-554bcde0936d)
+![Image](https://github.com/user-attachments/assets/91c308cd-c954-4f25-a504-42f422ac3cda)
 
 ## :desktop_computer: Tecnologias Utilizadas
 <div align="left">
@@ -40,9 +40,8 @@ Clique na imagem abaixo para uma demonstração.
 
 | Rank | User Story | Prioridade | Sprint |
 |----|---------|----------|------|
-| 4 | Niles, um engenheiro de software, quer que a IDE gere código automaticamente para acelerar seu desenvolvimento. | Alta | 2 |
-| 5 | Álvaro, outro desenvolvedor, quer rodar seu código diretamente na IDE para testar funcionalidades rapidamente.  | Altíssima | 2 |
-| 6 | Vinícius, um programador, quer que a IDE salve um histórico da comunicação entre ele e a IA.| Alta | 2 |
+| 7 | Juliano, um desenvolvedor, quer que a IDE sugira formas de completar seu código para aumentar sua produtividade e reduzir erros.| Alta | 3 |
+| 8 | Claúdio, em engenheiro de software, quer poder traduzir o seu código, usando a IDE| Alta | 3 |
 
   </details>
 
