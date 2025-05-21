@@ -2,7 +2,6 @@ package org.sputnik.api;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
@@ -54,6 +54,9 @@ public class Controlador implements Initializable {
 
     @FXML
     private VBox telaInicialBox;
+
+    @FXML
+    private ImageView SputnikImagem;
 
     @FXML
     private TextArea outPut;
@@ -121,10 +124,12 @@ public class Controlador implements Initializable {
                 telaInicialBox.setVisible(true);
                 tabPane.setVisible(false);
                 tabPane.setMouseTransparent(true);
+                SputnikImagem.setVisible(true);
             } else {
                 telaInicialBox.setVisible(false);
                 tabPane.setVisible(true);
                 tabPane.setMouseTransparent(false);
+                SputnikImagem.setVisible(false);
             }
         });
 
