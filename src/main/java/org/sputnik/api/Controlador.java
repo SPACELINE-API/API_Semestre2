@@ -35,6 +35,11 @@ import org.fife.ui.autocomplete.*;
 import org.fife.ui.rsyntaxtextarea.*;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import javax.swing.*;
+import javax.swing.undo.UndoManager;
+import javafx.scene.control.TreeView;
+import javafx.scene.control.TabPane;
+import javafx.scene.input.MouseEvent;
+import java.util.ResourceBundle;
 
 
 public class Controlador implements Initializable {
@@ -133,6 +138,9 @@ public class Controlador implements Initializable {
             }
         });
 
+        UndoManager undoManager = new UndoManager();
+        RSyntaxTextArea textArea = new RSyntaxTextArea();
+        textArea.getDocument().addUndoableEditListener(undoManager);
 
         /*Atalhos*/
         Platform.runLater(() -> {
@@ -175,9 +183,45 @@ public class Controlador implements Initializable {
                     mostrarHistorico();
                     event.consume();
                 }
+                if (event.isControlDown() && event.getCode() == KeyCode.Z) {
+                    RSyntaxTextArea rsta = getEditorAtual();
+                    if (rsta != null) {
+                        UndoManager manager = EditorRSyntaxFactory.getUndoManager(rsta);
+                        if (manager != null && manager.canUndo()) {
+                            manager.undo();
+                        }
+                    }
+                    event.consume();
+                }
+                if (event.isControlDown() && event.getCode() == KeyCode.Y) {
+                    RSyntaxTextArea rsta = getEditorAtual();
+                    if (rsta != null) {
+                        UndoManager manager = EditorRSyntaxFactory.getUndoManager(rsta);
+                        if (manager != null && manager.canRedo()) {
+                            manager.redo();
+                        }
+                    }
+                    event.consume();
+                }
             });
         });
 
+    }
+    private RSyntaxTextArea getEditorAtual() {
+        Tab aba = tabPane.getSelectionModel().getSelectedItem();
+        if (aba == null) return null;
+
+        Node conteudo = aba.getContent();
+        if (conteudo instanceof StackPane stack && !stack.getChildren().isEmpty()) {
+            Node node = stack.getChildren().get(0);
+            if (node instanceof SwingNode swingNode) {
+                JComponent editorComScroll = swingNode.getContent();
+                if (editorComScroll instanceof RTextScrollPane scrollPane) {
+                    return (RSyntaxTextArea) scrollPane.getTextArea();
+                }
+            }
+        }
+        return null;
     }
 
     private void configurarTreeView() {
@@ -410,6 +454,7 @@ public class Controlador implements Initializable {
     /*Sintaxe*/
 
     public class EditorRSyntaxFactory {
+        private static final Map<RSyntaxTextArea, UndoManager> undoManagers = new HashMap<>();
 
         public static JComponent criarEditor(String conteudo, String linguagem) {
             RSyntaxTextArea textArea = new RSyntaxTextArea(30, 80);
@@ -432,8 +477,15 @@ public class Controlador implements Initializable {
             ac.setAutoActivationDelay(200);
             ac.install(textArea);
 
+            UndoManager undoManager = new UndoManager();
+            textArea.getDocument().addUndoableEditListener(undoManager);
+            undoManagers.put(textArea, undoManager);
 
             return new RTextScrollPane(textArea);
+        }
+
+        public static UndoManager getUndoManager(RSyntaxTextArea textArea) {
+            return undoManagers.get(textArea);
         }
 
         private static String getSyntaxConstant(String linguagem) {
