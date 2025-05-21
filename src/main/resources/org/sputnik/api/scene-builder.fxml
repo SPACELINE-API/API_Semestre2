@@ -25,14 +25,18 @@
 
     <center>
         <StackPane style="-fx-background-color: #04293A;" BorderPane.alignment="CENTER">
-         <ImageView fx:id="SputnikImagem" fitHeight="198.0" fitWidth="281.0" opacity="0.5" pickOnBounds="true" preserveRatio="true" rotate="-90.0" translateX="-90.0" translateY="-40.0">
-            <image>
-               <Image url="@../../../Css/imagem/satelite%20(2).png" />
-            </image>
-         </ImageView>
             <VBox fx:id="telaInicialBox" alignment="TOP_CENTER" spacing="10" stylesheets="@../../../Css/principal.css">
                 <children>
-                    <Label styleClass="title" text="Sputnik" />
+               <StackPane prefHeight="150.0" prefWidth="200.0">
+                  <children>
+                     <ImageView fx:id="SputnikImagem" fitHeight="198.0" fitWidth="281.0" nodeOrientation="INHERIT" opacity="0.5" pickOnBounds="true" preserveRatio="true" rotate="-90.0" translateX="-88.0" translateY="15.0">
+                        <image>
+                           <Image url="@../../../Css/imagem/satelite (2).png" />
+                        </image>
+                     </ImageView>
+                          <Label styleClass="title" text="Sputnik" />
+                  </children>
+               </StackPane>
                     <HBox styleClass="meio">
                         <Button mnemonicParsing="false" onAction="#novoArquivo" styleClass="meio" text="Novo arquivo" />
                         <Label styleClass="atalho" text="Ctrl + N" />
@@ -44,8 +48,7 @@
                     <Label accessibleRole="BUTTON" styleClass="meio" />
                 </children>
             </VBox>
-   
-                                    <TabPane fx:id="tabPane" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../Css/principal.css" tabClosingPolicy="ALL_TABS" />
+            <TabPane fx:id="tabPane" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" stylesheets="@../../../Css/principal.css" tabClosingPolicy="ALL_TABS" />
         </StackPane>
     </center>
 
