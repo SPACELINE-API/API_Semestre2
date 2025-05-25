@@ -821,7 +821,7 @@ public class Controlador implements Initializable {
 
                 criarLabel("Atalhos", "titulo"),
                 criarText("Novo arquivo \u2192 Ctrl + N \nAbrir arquivo \u2192 Ctrl + O\nSalvar arquivo \u2192 Ctrl + S\nAjuda \u2192 Ctrl + H\nMostrar histórico \u2192 Ctrl + D\nExecutar \u2192 F5\n" +
-                        "Traduzir o código \u2192 Ctrl + T \nExplicar o código \u2192 Ctrl + E\nSugerir formas de completar o código \u2192 Ctrl + R", scene
+                        "Traduzir o código \u2192 Ctrl + T \nExplicar o código \u2192 Ctrl + E\nSugerir formas de completar o código \u2192 Ctrl + R\nDesfazer a última alteração no código fonte \u2192 Ctrl + Z\nRefazer a última alteração no código fonte \u2192 Ctrl + Y", scene
                 )
         );
 
