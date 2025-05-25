@@ -20,7 +20,7 @@
 
 # :vhs: Demostrações das sprints
 
-Apresentação das funcionalidades da 2° Sprint.
+Apresentação das funcionalidades da 3° Sprint.
 Clique na imagem abaixo para uma demonstração.
 
 [(![Logo Spaceline1](https://github.com/user-attachments/assets/0172c881-902b-4b82-b01a-fa3a1f033c75)](https://youtu.be/iPG8mqeGgMc)
