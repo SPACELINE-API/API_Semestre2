@@ -28,12 +28,11 @@
   Desenvolvimento de um Ambiente Integrado de Desenvolvimento (IDE) para auxiliar o desenvolvedor a otimizar tempo e custo de desenvolvimento. Desenvolvendo uma IDE para engenheiros eles próprios serão melhores engenheiros pois entenderão melhor sobre o ciclo de desenvolvimento de software. Embora muitos desenvolvedores utilizem chatgpt e outros LLMs para criar software, a interface de chatbot não é a melhor para este tipo de tarefa.
 
 
-# :vhs: Demostrações das sprints
+# :vhs: MVP
 
-Apresentação das funcionalidades da 1° Sprint.
-Clique na imagem abaixo para uma demonstração.
+Apresentação do que foi entregue em cada uma das sprints.
 
-[(![Logo Spaceline1](https://github.com/user-attachments/assets/0172c881-902b-4b82-b01a-fa3a1f033c75)](https://youtu.be/rZFVHzZK1eo)
+![Roadmap](https://github.com/user-attachments/assets/9362d373-0b93-4815-b72d-00c3d4481e6a)
 
 
 # Backlog das Sprints
